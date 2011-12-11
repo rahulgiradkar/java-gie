@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui" 
+	template="/templates/basictemplate.xhtml">
+		
+	<ui:define name="contenido">
+		<p:panel header="Identificación" >		
+			<h:form prependId="false">
+				<table>
+					<tr>
+						<th>Usuario:</th>
+						<td>
+							<h:inputText id="j_username" value="#{loginBean.usuario}" required="true" />
+							<h:message for="j_username" style="color:red;"/>
+						</td>
+					</tr>
+					<tr>
+						<th>Contraseña:</th>
+						<td>
+							<h:inputSecret id="j_password" value="#{loginBean.password}" required="true" />
+							<h:message for="j_password" style="color:red;"/>
+						</td>
+					</tr>
+				</table>
+				<h:commandButton action="#{loginBean.doLogin('/inicio_sesion_check')}" value="Iniciar Sesión"/>   
+			</h:form>
+		</p:panel>	
+	</ui:define>
+</ui:composition>

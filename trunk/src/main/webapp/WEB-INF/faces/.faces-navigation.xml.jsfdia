@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="editar-bitacora::#bitacora#editar.xhtml"
+    NAME="output" PATH="/bitacora/editar.xhtml"
+    TARGET="rules:#bitacora#editar.xhtml" TITLE="editar-bitacora" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="inicio::#home.xhtml" NAME="output1"
+    PATH="/home.xhtml" TARGET="rules:#home.xhtml" TITLE="inicio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="gestion-usuarios::#usuarios#listar.xhtml"
+    NAME="output2" PATH="/usuarios/listar.xhtml"
+    TARGET="rules:#usuarios#listar.xhtml" TITLE="gestion-usuarios" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#usuarios#*" PATH="/usuarios/*"
+  SHAPE="32,305,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#usuarios#*:0" NAME="item" PATH="/usuarios/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="listar::#usuarios#listar.xhtml"
+    NAME="output" PATH="/usuarios/listar.xhtml"
+    TARGET="rules:#usuarios#listar.xhtml" TITLE="listar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="cancelar::#usuarios#listar.xhtml"
+    NAME="output1" PATH="/usuarios/listar.xhtml"
+    TARGET="rules:#usuarios#listar.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="editar::#usuarios#editar.xhtml"
+    NAME="output2" PATH="/usuarios/editar.xhtml"
+    TARGET="rules:#usuarios#editar.xhtml" TITLE="editar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="nuevo::#usuarios#editar.xhtml"
+    NAME="output3" PATH="/usuarios/editar.xhtml"
+    TARGET="rules:#usuarios#editar.xhtml" TITLE="nuevo" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#bitacora#editar.xhtml"
+  PATH="/bitacora/editar.xhtml" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#usuarios#editar.xhtml"
+  PATH="/usuarios/editar.xhtml" SHAPE="288,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#usuarios#listar.xhtml"
+  PATH="/usuarios/listar.xhtml" SHAPE="288,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
+  SHAPE="288,209,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

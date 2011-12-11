@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    
+    <navigation-rule>
+    	<from-view-id>*</from-view-id>
+    	
+    	<navigation-case>
+    		<from-outcome>editar-bitacora</from-outcome>
+    		<to-view-id>/bitacora/editar.xhtml</to-view-id>
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>inicio</from-outcome>
+    		<to-view-id>/home.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>gestion-usuarios</from-outcome>
+    		<to-view-id>/usuarios/listar.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+    	<from-view-id>/usuarios/*</from-view-id>
+    	
+    	<navigation-case>
+    		<from-outcome>listar</from-outcome>
+    		<to-view-id>/usuarios/listar.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>cancelar</from-outcome>
+    		<to-view-id>/usuarios/listar.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>editar</from-outcome>
+    		<to-view-id>/usuarios/editar.xhtml</to-view-id>
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>nuevo</from-outcome>
+    		<to-view-id>/usuarios/editar.xhtml</to-view-id>
+    	</navigation-case>
+    
+    </navigation-rule>
+
+</faces-config>

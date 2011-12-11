@@ -1,0 +1,20 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:p="http://primefaces.org/ui"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<h:form id="headerForm">
+		<div id="menu-superior">
+			<h:link value="inicio" outcome="inicio" />
+			
+			<p:outputPanel rendered="#{identidad.loggedIn and !identidad.esAdmin}">
+				| <h:commandLink value="editar bitacora" action="#{editarBitacoraBean.irEditarBitacora}" immediate="true" />
+			</p:outputPanel>
+			
+			<p:outputPanel rendered="#{identidad.esAdmin}">
+				| <h:commandLink action="gestion-usuarios" value="Gestion Usuarios" immediate="true" /> 
+			</p:outputPanel>
+		</div>
+	</h:form>
+    
+</ui:composition>

@@ -1,0 +1,1 @@
+INSERT INTO usuario(id_usuario, apellidos, email, nombres, "password", es_admin) VALUES (-1, 'Admin', 'admin@javagie.cl', 'Admin', '70be2932a9786b17a1351b8d3b9fdf22', true);
