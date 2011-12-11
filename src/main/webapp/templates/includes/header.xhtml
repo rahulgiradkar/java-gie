@@ -1,0 +1,23 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets">
+	
+	<h:form>
+		<div id="logo-header">
+	 		<h:graphicImage library="images" name="logoArc.png" style="width: 610px; height: 97px;" />
+	 	</div>
+	 	
+	 	<div id="credenciales-header">
+		 	<ui:fragment rendered="#{identidad.loggedIn}">
+		 		<span>
+		 			Bienvenido <h:outputText value="#{identidad.nombre}" /> 
+		 		</span>
+		 		<a href="#{request.contextPath}/logout">Cerrar Sesión</a>
+		 	</ui:fragment>
+		 	
+		 	<ui:fragment rendered="#{not identidad.loggedIn}">
+		 		<a href="#{request.contextPath}/login.jsf" >Iniciar Sesión</a>
+		 	</ui:fragment>
+	    </div>
+    </h:form>
+</ui:composition>

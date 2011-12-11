@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	template="/templates/basictemplate.xhtml">
+		
+	<ui:define name="contenido">
+	
+		<t:saveState value="#{editarBitacoraBean.proyecto}" />
+		<t:saveState value="#{editarBitacoraBean.proyectoList}" />
+		<t:saveState value="#{editarBitacoraBean.bitacoraList}"/>
+		<t:saveState value="#{editarBitacoraBean.fechaActual}" />
+		<t:saveState value="#{editarBitacoraBean.resumenBitacora}" />
+		<t:saveState value="#{editarBitacoraBean.emailUser}" />
+		
+		<h:form>
+		
+			<p:outputPanel id="infoPanel" layout="block">
+				<table>
+					<tr>
+						<td>
+							Proyecto: 
+						</td>
+						<td>
+							<p:selectOneMenu value="#{editarBitacoraBean.proyecto}"  >
+								<f:converter converterId="genericConverter" />
+								<f:selectItems value="#{editarBitacoraBean.proyectoList}" var="p" 
+									itemLabel="#{p.nombre}" itemValue="#{p}" />
+								<p:ajax event="change" process="@this" update="@form" 
+									listener="#{editarBitacoraBean.cambiarProyecto}" />
+							</p:selectOneMenu>
+						</td>
+						<td>
+							Total Horas Hombre: #{editarBitacoraBean.resumenBitacora.horasTotal}
+						</td>
+					</tr>
+				</table>
+			</p:outputPanel>
+			
+			<p:outputPanel id="bitPanelIzq" style="float: left; position: absolute; z-index: 500; margin-top: 13px;" layout="block">
+				<p:calendar value="#{editarBitacoraBean.fechaActual}" 
+					pattern="dd/MM/yyyy"
+					locale="es_ES"
+					navigator="true"
+					mode="inline" >
+					<p:ajax event="dateSelect" process="@this" update="@form" 
+						listener="#{editarBitacoraBean.calendarioListener}"  />
+				</p:calendar>
+				
+				<h3>Resumen Horas Hombre:</h3>
+				
+				<p:dataList var="resumen" value="#{editarBitacoraBean.resumenBitacora.diaBitList}" >
+						<p:column>
+							<p:commandLink 
+								process="@this"
+								update="@form"
+								actionListener="#{editarBitacoraBean.cambiarFechaProyecto(resumen.fecha)}" >
+								<h:outputText value="#{resumen.fecha}" >
+									<f:convertDateTime pattern="dd  MMMM  yyyy" />
+								</h:outputText>
+								<h:outputText value=", #{resumen.totalHoraDia} HH" />
+							</p:commandLink>
+						</p:column>
+				</p:dataList>
+			</p:outputPanel>
+			
+			<p:outputPanel id="bitPanelDer" style="width: 775px; margin-left: 209px;" layout="block">
+				<h2>
+					<h:outputText value="#{editarBitacoraBean.fechaActual}" >
+						<f:convertDateTime pattern="EEEEEEEE dd  MMMM  yyyy" />
+					</h:outputText>
+				</h2>
+				<table style="width: 100%;">
+					<tr>
+						<ui:repeat var="bit" value="#{editarBitacoraBean.bitacoraList}">
+							<td style="padding-left: 5px;">
+								<div style="text-align: center;">
+									<h3><h:outputText value="#{bit.participante.tipoCargo.nombre}" /></h3>
+								</div>
+								<div>
+									<h:inputTextarea value="#{bit.texto}" style="width:100%;" rows="20" />
+								</div>
+								<div>
+									Horas: <h:inputText value="#{bit.horasHombre}" />
+								</div>
+							</td>
+						</ui:repeat>
+					</tr>
+				</table>
+			</p:outputPanel>
+
+			<div class="botoneraForm">
+				<p:commandButton value="Guardar" actionListener="#{editarBitacoraBean.guardar()}"  />
+			</div>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

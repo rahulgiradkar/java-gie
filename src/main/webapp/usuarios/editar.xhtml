@@ -1,0 +1,63 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	template="/templates/basictemplate.xhtml">
+		
+	<ui:define name="contenido">
+	
+		<t:saveState value="#{editarUsuarioBean.usuario}"/>
+		
+		<h:form>
+			<p:panel header="Usuario">
+			
+				<table>
+					<tr><td></td><td><p:message for="nombres" /></td></tr>
+					<tr>
+						<th>* Nombres:</th>
+						<td>
+							<h:inputText id="nombres" value="#{editarUsuarioBean.usuario.nombres}" required="true" style="width:255px" />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="apellidos" /></td></tr>
+					<tr>
+						<th>* Apellidos:</th>
+						<td>
+							<h:inputText id="apellidos" value="#{editarUsuarioBean.usuario.apellidos}" required="true" style="width:255px" />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="email" /></td></tr>
+					<tr>
+						<th>* Correo electronico:</th>
+						<td>
+							<h:inputText id="email" value="#{editarUsuarioBean.usuario.email}" required="true" style="width:255px" />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="password1" /></td></tr>
+					<tr>
+						<th>Contraseña:</th>
+						<td>
+							<h:inputSecret id="password1" value="#{editarUsuarioBean.usuario.password}" style="width:255px" />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="password2" /></td></tr>
+					<tr>
+						<th>Confirmar contraseña:</th>
+						<td>
+							<h:inputSecret id="password2" value="#{editarUsuarioBean.passwordAux}" style="width:255px" />
+						</td>
+					</tr>
+				</table>
+				
+			</p:panel>
+	
+			<div class="botoneraForm">
+				<h:commandButton value="Cancelar" action="cancelar" immediate="true" />
+				<h:commandButton value="Guardar" action="#{editarUsuarioBean.guardar()}" />
+			</div>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
