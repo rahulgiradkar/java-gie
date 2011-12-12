@@ -2,6 +2,7 @@ package javagie.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import java.util.Set;
 
 
@@ -11,6 +12,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name="tipo_cargo")
+@NamedQueries({
+	@NamedQuery(name="TipoCargo.traerTodos", query="SELECT t FROM TipoCargo t ORDER BY t.nombre ASC")
+})
 public class TipoCargo implements Serializable {
 	private static final long serialVersionUID = 1L;
 

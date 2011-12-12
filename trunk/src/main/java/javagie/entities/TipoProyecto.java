@@ -11,9 +11,14 @@ import java.util.Set;
  */
 @Entity
 @Table(name="tipo_proyecto")
+@NamedQueries({
+	@NamedQuery(name="TipoProyecto.traerTodos", query="SELECT t FROM TipoProyecto t ORDER BY t.nombre ASC")
+})
 public class TipoProyecto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	public static final Integer ID_TIPO_PROYECTO_DESARROLLO = 1;
+	
 	@Id
 	@Column(name="id_tipo_proyecto", unique=true, nullable=false)
 	private Integer idTipoProyecto;
@@ -26,6 +31,10 @@ public class TipoProyecto implements Serializable {
 	private Set<Proyecto> proyectos;
 
     public TipoProyecto() {
+    }
+    
+    public TipoProyecto(Integer idTipoProyecto) {
+    	this.idTipoProyecto = idTipoProyecto;
     }
 
 	public Integer getIdTipoProyecto() {

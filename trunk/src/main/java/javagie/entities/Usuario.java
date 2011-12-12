@@ -12,6 +12,8 @@ import java.util.Set;
 @Entity
 @Table(name="usuario")
 @NamedQueries({
+	@NamedQuery(name="Usuario.traerTodosMenosAdministradores", query="SELECT u FROM Usuario u " +
+			"WHERE u.esAdmin = false ORDER BY u.apellidos ASC, u.nombres ASC"), 
     @NamedQuery(name="Usuario.traerPorEmail", query="SELECT u FROM Usuario u WHERE u.email = :email"),
     @NamedQuery(name="Usuario.traerTodas", 
                     query="SELECT u FROM Usuario u ORDER BY u.apellidos ASC"),

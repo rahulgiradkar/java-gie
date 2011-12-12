@@ -1,6 +1,6 @@
 package javagie.entities;
 
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 import javagie.arquitectura.BaseEntity;
@@ -46,7 +46,7 @@ public class Proyecto implements BaseEntity {
 	private String descripcion;
 
 	@Column(name="fecha_inicio")
-	private Timestamp fechaInicio;
+	private Date fechaInicio;
 
 	@Column(length=100)
 	private String nombre;
@@ -88,11 +88,11 @@ public class Proyecto implements BaseEntity {
 		this.descripcion = descripcion;
 	}
 
-	public Timestamp getFechaInicio() {
+	public Date getFechaInicio() {
 		return this.fechaInicio;
 	}
 
-	public void setFechaInicio(Timestamp fechaInicio) {
+	public void setFechaInicio(Date fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
