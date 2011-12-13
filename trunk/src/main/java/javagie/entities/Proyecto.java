@@ -40,7 +40,7 @@ public class Proyecto implements BaseEntity {
 	@SequenceGenerator(name="PROYECTO_IDPROYECTO_GENERATOR", sequenceName="PROYECTO_ID_PROYECTO_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PROYECTO_IDPROYECTO_GENERATOR")
 	@Column(name="id_proyecto", unique=true, nullable=false)
-	private Integer idProyecto;
+	private Long idProyecto;
 
 	@Column(length=500)
 	private String descripcion;
@@ -72,11 +72,11 @@ public class Proyecto implements BaseEntity {
     public Proyecto() {
     }
 
-	public Integer getIdProyecto() {
+	public Long getIdProyecto() {
 		return this.idProyecto;
 	}
 
-	public void setIdProyecto(Integer idProyecto) {
+	public void setIdProyecto(Long idProyecto) {
 		this.idProyecto = idProyecto;
 	}
 

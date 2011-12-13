@@ -13,19 +13,19 @@ CREATE SEQUENCE hibernate_sequence
   CACHE 1;
 
 create table horas_soporte (
-   id_tipo_cargo        int4                 not null,
-   id_proyecto          int4                 not null,
-   horas_hombres        int4                 null
+   id_tipo_cargo        integer                 not null,
+   id_proyecto          integer                 not null,
+   horas_hombres        integer                 null
 );
 
 alter table horas_soporte
    add constraint pk_horas_soporte primary key (id_tipo_cargo, id_proyecto);
 
 create table participante (
-   id_participante      serial               not null,
-   id_usuario           int4                 not null,
-   id_proyecto          int4                 not null,
-   id_tipo_cargo        int4                 null
+   id_participante      bigserial               not null,
+   id_usuario           integer                 not null,
+   id_proyecto          integer                 not null,
+   id_tipo_cargo        integer                 null
 );
 
 alter table participante
@@ -38,9 +38,9 @@ id_tipo_cargo
 );
 
 create table proyecto (
-   id_proyecto          serial               not null,
-   id_tipo_proyecto     int4                 not null,
-   id_tipo_estado_proyecto int4                 null,
+   id_proyecto          bigserial               not null,
+   id_tipo_proyecto     integer                 not null,
+   id_tipo_estado_proyecto integer                 null,
    nombre               varchar(100)         null,
    descripcion          varchar(500)         null,
    fecha_inicio         timestamp with time zone null
@@ -50,7 +50,7 @@ alter table proyecto
    add constraint pk_proyecto primary key (id_proyecto);
 
 create table tipo_cargo (
-   id_tipo_cargo        int4                 not null,
+   id_tipo_cargo        integer                 not null,
    nombre               varchar(50)          null
 );
 
@@ -58,7 +58,7 @@ alter table tipo_cargo
    add constraint pk_tipo_cargo primary key (id_tipo_cargo);
 
 create table tipo_estado_proyecto (
-   id_tipo_estado_proyecto int4                 not null,
+   id_tipo_estado_proyecto integer                 not null,
    nombre               varchar(50)          not null
 );
 
@@ -66,7 +66,7 @@ alter table tipo_estado_proyecto
    add constraint pk_tipo_estado_proyecto primary key (id_tipo_estado_proyecto);
 
 create table tipo_proyecto (
-   id_tipo_proyecto     int4                 not null,
+   id_tipo_proyecto     integer                 not null,
    nombre               varchar(50)          null
 );
 
@@ -74,7 +74,7 @@ alter table tipo_proyecto
    add constraint pk_tipo_proyecto primary key (id_tipo_proyecto);
 
 create table usuario (
-   id_usuario           serial               not null,
+   id_usuario           bigserial               not null,
    apellidos            varchar(100)         null,
    nombres              varchar(100)         null,
    email                varchar(50)          not null,
@@ -90,12 +90,12 @@ email
 );
 
 create table bitacora (
-   id_participante      int4                 not null,
-   dia                  int4                 not null,
-   mes                  int4                 not null,
-   ano                  int4                 not null,
+   id_participante      bigint                 not null,
+   dia                  integer                 not null,
+   mes                  integer                 not null,
+   ano                  integer                 not null,
    texto                text                 not null,
-   horas_hombre         int4                 not null
+   horas_hombre         integer                 not null
 );
 
 alter table bitacora

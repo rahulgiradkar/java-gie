@@ -13,7 +13,7 @@ public class BitacoraPK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="id_participante", unique=true, nullable=false)
-	private Integer idParticipante;
+	private Long idParticipante;
 
 	@Column(unique=true, nullable=false)
 	private Integer dia;
@@ -26,10 +26,10 @@ public class BitacoraPK implements Serializable {
 
     public BitacoraPK() {
     }
-	public Integer getIdParticipante() {
+	public Long getIdParticipante() {
 		return this.idParticipante;
 	}
-	public void setIdParticipante(Integer idParticipante) {
+	public void setIdParticipante(Long idParticipante) {
 		this.idParticipante = idParticipante;
 	}
 	public Integer getDia() {

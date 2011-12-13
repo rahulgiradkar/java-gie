@@ -12,6 +12,10 @@ import java.util.Set;
 @Entity
 @Table(name="participante")
 @NamedQueries({
+	@NamedQuery(name="Participante.traerPorProyecto", 
+			query="SELECT p FROM Participante p " +
+					"WHERE p.proyecto = :proyecto " +
+					"ORDER BY p.tipoCargo.idTipoCargo ASC, p.usuario.apellidos ASC"),
 	@NamedQuery(name="Participante.traerPorProyectoYEmailUsuario", 
 			query="SELECT p FROM Participante p " +
 					"WHERE p.proyecto = :proyecto " +
@@ -24,7 +28,7 @@ public class Participante implements Serializable {
 	@SequenceGenerator(name="PARTICIPANTE_IDPARTICIPANTE_GENERATOR", sequenceName="PARTICIPANTE_ID_PARTICIPANTE_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="PARTICIPANTE_IDPARTICIPANTE_GENERATOR")
 	@Column(name="id_participante", unique=true, nullable=false)
-	private Integer idParticipante;
+	private Long idParticipante;
 
 	//bi-directional many-to-one association to Proyecto
     @ManyToOne
@@ -48,11 +52,11 @@ public class Participante implements Serializable {
     public Participante() {
     }
 
-	public Integer getIdParticipante() {
+	public Long getIdParticipante() {
 		return this.idParticipante;
 	}
 
-	public void setIdParticipante(Integer idParticipante) {
+	public void setIdParticipante(Long idParticipante) {
 		this.idParticipante = idParticipante;
 	}
 
@@ -93,7 +97,10 @@ public class Participante implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((idParticipante == null) ? 0 : idParticipante.hashCode());
+				+ ((proyecto == null) ? 0 : proyecto.hashCode());
+		result = prime * result
+				+ ((tipoCargo == null) ? 0 : tipoCargo.hashCode());
+		result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
 		return result;
 	}
 
@@ -106,13 +113,22 @@ public class Participante implements Serializable {
 		if (!(obj instanceof Participante))
 			return false;
 		Participante other = (Participante) obj;
-		if (idParticipante == null) {
-			if (other.idParticipante != null)
+		if (proyecto == null) {
+			if (other.proyecto != null)
 				return false;
-		} else if (!idParticipante.equals(other.idParticipante))
+		} else if (!proyecto.equals(other.proyecto))
+			return false;
+		if (tipoCargo == null) {
+			if (other.tipoCargo != null)
+				return false;
+		} else if (!tipoCargo.equals(other.tipoCargo))
+			return false;
+		if (usuario == null) {
+			if (other.usuario != null)
+				return false;
+		} else if (!usuario.equals(other.usuario))
 			return false;
 		return true;
 	}
-	
 	
 }
