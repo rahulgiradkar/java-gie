@@ -26,6 +26,12 @@
     		<redirect />
     	</navigation-case>
     	
+    	<navigation-case>
+    		<from-outcome>agregar-proyecto</from-outcome>
+    		<to-view-id>/proyecto/editar.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
     </navigation-rule>
     
     
@@ -54,6 +60,22 @@
     		<to-view-id>/usuarios/editar.xhtml</to-view-id>
     	</navigation-case>
     
+    </navigation-rule>
+    
+    <navigation-rule>
+    	<from-view-id>/proyecto/*</from-view-id>
+    	
+    	<navigation-case>
+    		<from-outcome>cancelar</from-outcome>
+    		<to-view-id>/proyecto/buscar.xhtml</to-view-id>
+    		<redirect />
+    	</navigation-case>
+    	
+    	<navigation-case>
+    		<from-outcome>editar</from-outcome>
+    		<to-view-id>/proyecto/editar.xhtml</to-view-id>
+    	</navigation-case>
+    	
     </navigation-rule>
 
 </faces-config>

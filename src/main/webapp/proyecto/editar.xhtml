@@ -1,0 +1,140 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk" 
+	template="/templates/basictemplate.xhtml">
+		
+	<ui:define name="contenido">
+	
+		<t:saveState value="#{editarProyectoBean.proyecto}"/>
+		<t:saveState value="#{editarProyectoBean.participanteList}"/>
+		
+		<h:form>
+			
+			<p:outputPanel rendered="#{!editarProyectoBean.crearProyecto}">
+				<h1>Editar Proyecto</h1>
+			</p:outputPanel>
+			
+			<p:outputPanel rendered="#{editarProyectoBean.crearProyecto}" >
+				<h1>Crear Proyecto</h1>
+			</p:outputPanel>
+			
+			<p:panel header="Datos generales">
+				<table>
+					<tr><td></td><td><p:message for="nombre" /></td></tr>
+					<tr>
+						<th>* Nombre:</th>
+						<td>
+							<p:inputText id="nombre" value="#{editarProyectoBean.proyecto.nombre}" required="true"  />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="descripcion" /></td></tr>
+					<tr>
+						<th>Descripción:</th>
+						<td>
+							<p:inputTextarea id="descripcion" value="#{editarProyectoBean.proyecto.descripcion}" />
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="tipo" /></td></tr>
+					<tr>
+						<th>*Tipo:</th>
+						<td>
+							<p:selectOneMenu 
+								id="tipo"
+								value="#{editarProyectoBean.proyecto.tipoProyecto}" 
+								converter="genericConverter"
+								required="true">
+								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItems value="#{editarProyectoBean.tipoProyectoList}" var="tipoProyecto"
+									itemLabel="#{tipoProyecto.nombre}" itemValue="#{tipoProyecto}"/>
+							
+							</p:selectOneMenu>
+						</td>
+					</tr>
+				</table>	
+			</p:panel>			
+		
+			<p:panel header="Participantes">
+				<p:outputPanel id="agregarSeccion">
+					<table>
+						<tr><td></td><td><p:message for="usuario" /></td></tr>
+						<tr>
+							<th>Usuario:</th>
+							<td>
+								<p:selectOneMenu 
+									id="usuario"
+									value="#{editarProyectoBean.usuario}" 
+									converter="genericConverter"
+									required="true">
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
+										itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
+								
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr><td></td><td><p:message for="cargo" /></td></tr>
+						<tr>
+							<th>Cargo:</th>
+							<td>
+								<p:selectOneMenu 
+									id="cargo"
+									value="#{editarProyectoBean.tipoCargo}" 
+									converter="genericConverter"
+									required="true">
+									<f:selectItem itemLabel="Seleccione..." itemValue="" />
+									<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
+										itemLabel="#{c.nombre} #{c}" itemValue="#{c}"/>
+								
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<p:commandButton 
+									id="botonAgregar"
+									actionListener="#{editarProyectoBean.agregarParticipante()}"
+									value="Agregar"
+									update="tablaParticipantes" 
+									process="agregarSeccion" />
+							</td>
+						</tr>
+					</table>
+				</p:outputPanel>	
+				
+				<p:dataTable
+					id="tablaParticipantes"
+					value="#{editarProyectoBean.participantesList}"
+					var="par">
+					
+					<p:column headerText="Usuario">
+						<h:outputText value="#{par.usuario.nombres} #{par.usuario.apellidos}" />
+					</p:column>
+					
+					<p:column headerText="Cargo">
+						<h:outputText value="#{par.tipoCargo.nombre}" />
+					</p:column>
+					
+					<p:column>
+						<p:commandLink 
+							value="X"
+							actionListener="#{editarProyectoBean.eliminarParticipante(par)}"
+							update="tablaParticipantes"
+							process="@this" />
+					</p:column>
+				
+				</p:dataTable>
+			
+			</p:panel>				
+	
+			<div class="botoneraForm">
+				<h:commandButton value="Cancelar" action="cancelar" immediate="true" />
+				<h:commandButton value="Guardar" action="#{editarProyectoBean.guardarProyecto()}" />
+			</div>
+		</h:form>
+		
+	</ui:define>
+</ui:composition>

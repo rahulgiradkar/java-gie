@@ -10,6 +10,9 @@
    <PROCESS-ITEM-OUTPUT ID="gestion-usuarios::#usuarios#listar.xhtml"
     NAME="output2" PATH="/usuarios/listar.xhtml"
     TARGET="rules:#usuarios#listar.xhtml" TITLE="gestion-usuarios" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="agregar-proyecto::#proyecto#editar.xhtml"
+    NAME="output3" PATH="/proyecto/editar.xhtml"
+    TARGET="rules:#proyecto#editar.xhtml" TITLE="agregar-proyecto" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#usuarios#*" PATH="/usuarios/*"
@@ -37,4 +40,19 @@
   PATH="/usuarios/listar.xhtml" SHAPE="288,321,0,0" model-entity="JSFProcessGroup"/>
  <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
   SHAPE="288,209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#proyecto#editar.xhtml"
+  PATH="/proyecto/editar.xhtml" SHAPE="288,561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#proyecto#*" PATH="/proyecto/*"
+  SHAPE="32,769,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#proyecto#*:0" NAME="item" PATH="/proyecto/*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="cancelar::#proyecto#buscar.xhtml"
+    NAME="output" PATH="/proyecto/buscar.xhtml"
+    TARGET="rules:#proyecto#buscar.xhtml" TITLE="cancelar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="editar::#proyecto#editar.xhtml"
+    NAME="output1" PATH="/proyecto/editar.xhtml"
+    TARGET="rules:#proyecto#editar.xhtml" TITLE="editar" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#proyecto#buscar.xhtml"
+  PATH="/proyecto/buscar.xhtml" SHAPE="288,929,0,0" model-entity="JSFProcessGroup"/>
 </PROCESS>
