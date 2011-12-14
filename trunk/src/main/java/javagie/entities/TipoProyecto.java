@@ -1,8 +1,17 @@
 package javagie.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Set;
+
+import javagie.arquitectura.BaseEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -14,7 +23,7 @@ import java.util.Set;
 @NamedQueries({
 	@NamedQuery(name="TipoProyecto.traerTodos", query="SELECT t FROM TipoProyecto t ORDER BY t.nombre ASC")
 })
-public class TipoProyecto implements Serializable {
+public class TipoProyecto implements BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	public static final Integer ID_TIPO_PROYECTO_DESARROLLO = 1;
@@ -85,6 +94,12 @@ public class TipoProyecto implements Serializable {
 		} else if (!idTipoProyecto.equals(other.idTipoProyecto))
 			return false;
 		return true;
+	}
+
+	@Transient
+	@Override
+	public Object getPrimaryKey() {
+		return idTipoProyecto;
 	}
 	
 }

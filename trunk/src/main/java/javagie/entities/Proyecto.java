@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 
 /**
@@ -42,12 +43,14 @@ public class Proyecto implements BaseEntity {
 	@Column(name="id_proyecto", unique=true, nullable=false)
 	private Long idProyecto;
 
+	@Size(max=100)
 	@Column(length=500)
 	private String descripcion;
 
 	@Column(name="fecha_inicio")
 	private Date fechaInicio;
 
+	@Size(max=100)
 	@Column(length=100)
 	private String nombre;
 

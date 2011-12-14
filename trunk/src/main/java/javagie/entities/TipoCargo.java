@@ -1,9 +1,17 @@
 package javagie.entities;
 
-import java.io.Serializable;
-import javax.persistence.*;
-
 import java.util.Set;
+
+import javagie.arquitectura.BaseEntity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 /**
@@ -15,7 +23,7 @@ import java.util.Set;
 @NamedQueries({
 	@NamedQuery(name="TipoCargo.traerTodos", query="SELECT t FROM TipoCargo t ORDER BY t.nombre ASC")
 })
-public class TipoCargo implements Serializable {
+public class TipoCargo implements BaseEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -92,6 +100,12 @@ public class TipoCargo implements Serializable {
 		} else if (!idTipoCargo.equals(other.idTipoCargo))
 			return false;
 		return true;
+	}
+
+	@Transient
+	@Override
+	public Object getPrimaryKey() {
+		return idTipoCargo;
 	}
 	
 	
