@@ -10,8 +10,15 @@
 	
 		<t:saveState value="#{editarProyectoBean.proyecto}"/>
 		<t:saveState value="#{editarProyectoBean.participanteList}"/>
+		<t:saveState value="#{editarProyectoBean.usuario}"/>
+		<t:saveState value="#{editarProyectoBean.tipoCargo}"/>
+		<t:saveState value="#{editarProyectoBean.usuarioList}"/>
+		<t:saveState value="#{editarProyectoBean.tipoCargoList}"/>
+		<t:saveState value="#{editarProyectoBean.tipoProyectoList}"/>
+		<t:saveState value="#{editarProyectoBean.idParticipantesEliminar}"/>
 		
-		<h:form>
+		
+		<h:form id="editarProyectoForm" prependId="false">
 			
 			<p:outputPanel rendered="#{!editarProyectoBean.crearProyecto}">
 				<h1>Editar Proyecto</h1>
@@ -21,7 +28,7 @@
 				<h1>Crear Proyecto</h1>
 			</p:outputPanel>
 			
-			<p:panel header="Datos generales">
+			<p:panel id="generalesPanel" header="Datos generales">
 				<table>
 					<tr><td></td><td><p:message for="nombre" /></td></tr>
 					<tr>
@@ -46,7 +53,7 @@
 								value="#{editarProyectoBean.proyecto.tipoProyecto}" 
 								converter="genericConverter"
 								required="true">
-								<f:selectItem itemLabel="Select One" itemValue="" />
+								<f:selectItem itemLabel="Seleccione..."  />
 								<f:selectItems value="#{editarProyectoBean.tipoProyectoList}" var="tipoProyecto"
 									itemLabel="#{tipoProyecto.nombre}" itemValue="#{tipoProyecto}"/>
 							
@@ -56,58 +63,56 @@
 				</table>	
 			</p:panel>			
 		
-			<p:panel header="Participantes">
-				<p:outputPanel id="agregarSeccion">
-					<table>
-						<tr><td></td><td><p:message for="usuario" /></td></tr>
-						<tr>
-							<th>Usuario:</th>
-							<td>
-								<p:selectOneMenu 
-									id="usuario"
-									value="#{editarProyectoBean.usuario}" 
-									converter="genericConverter"
-									required="true">
-									<f:selectItem itemLabel="Seleccione..." itemValue="" />
-									<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
-										itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
-								
-								</p:selectOneMenu>
-							</td>
-						</tr>
-						<tr><td></td><td><p:message for="cargo" /></td></tr>
-						<tr>
-							<th>Cargo:</th>
-							<td>
-								<p:selectOneMenu 
-									id="cargo"
-									value="#{editarProyectoBean.tipoCargo}" 
-									converter="genericConverter"
-									required="true">
-									<f:selectItem itemLabel="Seleccione..." itemValue="" />
-									<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
-										itemLabel="#{c.nombre} #{c}" itemValue="#{c}"/>
-								
-								</p:selectOneMenu>
-							</td>
-						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<p:commandButton 
-									id="botonAgregar"
-									actionListener="#{editarProyectoBean.agregarParticipante()}"
-									value="Agregar"
-									update="tablaParticipantes" 
-									process="agregarSeccion" />
-							</td>
-						</tr>
-					</table>
-				</p:outputPanel>	
+			<p:panel id="partPanel" header="Participantes">
+				<table>
+					<tr><td></td><td><p:message for="usuario" /></td></tr>
+					<tr>
+						<th>Usuario:</th>
+						<td>
+							<p:selectOneMenu 
+								id="usuario"
+								value="#{editarProyectoBean.usuario}" 
+								converter="genericConverter"
+								required="true">
+								<f:selectItem itemLabel="Seleccione..." />
+								<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
+									itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
+							
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr><td></td><td><p:message for="cargo" /></td></tr>
+					<tr>
+						<th>Cargo:</th>
+						<td>
+							<p:selectOneMenu 
+								id="cargo"
+								value="#{editarProyectoBean.tipoCargo}" 
+								converter="genericConverter"
+								required="true">
+								<f:selectItem itemLabel="Seleccione..." />
+								<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
+									itemLabel="#{c.nombre}" itemValue="#{c}"/>
+							
+							</p:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td>
+							<p:commandButton 
+								id="botonAgregar"
+								actionListener="#{editarProyectoBean.agregarParticipante}"
+								value="Agregar"
+								update="partPanel" 
+								process="partPanel" />
+						</td>
+					</tr>
+				</table>
 				
 				<p:dataTable
 					id="tablaParticipantes"
-					value="#{editarProyectoBean.participantesList}"
+					value="#{editarProyectoBean.participanteList}"
 					var="par">
 					
 					<p:column headerText="Usuario">
@@ -122,8 +127,8 @@
 						<p:commandLink 
 							value="X"
 							actionListener="#{editarProyectoBean.eliminarParticipante(par)}"
-							update="tablaParticipantes"
-							process="@this" />
+							update="partPanel"
+							process="@this"  />
 					</p:column>
 				
 				</p:dataTable>
@@ -131,8 +136,8 @@
 			</p:panel>				
 	
 			<div class="botoneraForm">
-				<h:commandButton value="Cancelar" action="cancelar" immediate="true" />
-				<h:commandButton value="Guardar" action="#{editarProyectoBean.guardarProyecto()}" />
+				<p:commandButton value="Guardar" action="#{editarProyectoBean.guardarProyecto}" ajax="false" />
+				<p:commandButton value="Cancelar" action="cancelar" immediate="true" />
 			</div>
 		</h:form>
 		

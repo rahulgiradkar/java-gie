@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import javagie.entities.Participante;
+import javagie.entities.Proyecto;
 import javagie.entities.TipoCargo;
 import javagie.entities.TipoProyecto;
 import javagie.entities.Usuario;
@@ -26,19 +27,20 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 	private TipoCargo tipoCargo;
 	private List<Long> idParticipantesEliminar;
 	
-	public String irEditarProyecto(Long idProyecto) {
-		irVerProyecto(idProyecto);
-		usuarioList = proyectoService.traerUsuariosParaProyecto();
-		tipoCargoList = proyectoService.traerTodosTipoCargo();
-		tipoProyectoList = proyectoService.traerTodosTiposDeProyectos();
-		idParticipantesEliminar = new ArrayList<Long>();
+	public String irEditarProyecto(Proyecto proyecto) {
+		irVerProyecto(proyecto);
+		this.usuarioList = proyectoService.traerUsuariosParaProyecto();
+		this.tipoCargoList = proyectoService.traerTodosTipoCargo();
+		this.tipoProyectoList = proyectoService.traerTodosTiposDeProyectos();
+		this.idParticipantesEliminar = new ArrayList<Long>();
 		
-		if(proyecto.getIdProyecto() == null)
+		if(this.proyecto.getIdProyecto() == null) {
 			crearProyecto = true;
-		else
+			return "crear-proyecto";
+		}else {
 			crearProyecto = false;
-		
-		return "editar-proyecto";
+			return "editar-proyecto";
+		}
 	}
 	
 	public void agregarParticipante() {
@@ -48,7 +50,7 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 		participante.setProyecto(proyecto);
 		
 		if(participanteList.contains(participante)) {
-			facesUtil.addErrorMessage("agregarBoton", ConstantesUtil.MSJ_ERROR_YA_EXISTE_PARTICIPANTE);
+			facesUtil.addErrorMessage("usuario", ConstantesUtil.MSJ_ERROR_YA_EXISTE_PARTICIPANTE);
 		}
 		else {
 			participanteList.add(participante);
@@ -121,5 +123,12 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 
 	public void setCrearProyecto(boolean crearProyecto) {
 		this.crearProyecto = crearProyecto;
+	}
+	
+	public List<Long> getIdParticipantesEliminar() {
+		return idParticipantesEliminar;
+	}
+	public void setIdParticipantesEliminar(List<Long> idParticipantesEliminar) {
+		this.idParticipantesEliminar = idParticipantesEliminar;
 	}
 }

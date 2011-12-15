@@ -13,7 +13,7 @@
 			
 			<p:outputPanel rendered="#{identidad.esAdmin}">
 				| <h:commandLink action="gestion-usuarios" value="Gestion Usuarios" immediate="true" /> 
-				| <h:commandLink action="agregar-proyecto" value="Agregar Proyecto" immediate="true" />
+				| <h:commandLink action="#{editarProyectoBean.irEditarProyecto(null)}" value="Agregar Proyecto" immediate="true" />
 			</p:outputPanel>
 		</div>
 	</h:form>

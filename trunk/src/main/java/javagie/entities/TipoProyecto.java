@@ -26,11 +26,11 @@ import javax.persistence.Transient;
 public class TipoProyecto implements BaseEntity {
 	private static final long serialVersionUID = 1L;
 
-	public static final Integer ID_TIPO_PROYECTO_DESARROLLO = 1;
+	public static final long ID_TIPO_PROYECTO_DESARROLLO = 1;
 	
 	@Id
 	@Column(name="id_tipo_proyecto", unique=true, nullable=false)
-	private Integer idTipoProyecto;
+	private Long idTipoProyecto;
 
 	@Column(length=50)
 	private String nombre;
@@ -42,15 +42,15 @@ public class TipoProyecto implements BaseEntity {
     public TipoProyecto() {
     }
     
-    public TipoProyecto(Integer idTipoProyecto) {
+    public TipoProyecto(Long idTipoProyecto) {
     	this.idTipoProyecto = idTipoProyecto;
     }
 
-	public Integer getIdTipoProyecto() {
+	public Long getIdTipoProyecto() {
 		return this.idTipoProyecto;
 	}
 
-	public void setIdTipoProyecto(Integer idTipoProyecto) {
+	public void setIdTipoProyecto(Long idTipoProyecto) {
 		this.idTipoProyecto = idTipoProyecto;
 	}
 

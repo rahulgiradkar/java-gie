@@ -41,7 +41,7 @@ public class Usuario implements BaseEntity {
 	@SequenceGenerator(name="USUARIO_IDUSUARIO_GENERATOR", sequenceName="USUARIO_ID_USUARIO_SEQ")
 	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="USUARIO_IDUSUARIO_GENERATOR")
 	@Column(name="id_usuario", unique=true, nullable=false)
-	private Integer idUsuario;
+	private Long idUsuario;
 
 	@Column(length=100)
 	private String apellidos;
@@ -65,11 +65,11 @@ public class Usuario implements BaseEntity {
     public Usuario() {
     }
 
-	public Integer getIdUsuario() {
+	public Long getIdUsuario() {
 		return this.idUsuario;
 	}
 
-	public void setIdUsuario(Integer idUsuario) {
+	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
 

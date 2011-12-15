@@ -13,23 +13,23 @@ public class HorasSoportePK implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Column(name="id_tipo_cargo", unique=true, nullable=false)
-	private Integer idTipoCargo;
+	private Long idTipoCargo;
 
 	@Column(name="id_proyecto", unique=true, nullable=false)
-	private Integer idProyecto;
+	private Long idProyecto;
 
     public HorasSoportePK() {
     }
-	public Integer getIdTipoCargo() {
+	public Long getIdTipoCargo() {
 		return this.idTipoCargo;
 	}
-	public void setIdTipoCargo(Integer idTipoCargo) {
+	public void setIdTipoCargo(Long idTipoCargo) {
 		this.idTipoCargo = idTipoCargo;
 	}
-	public Integer getIdProyecto() {
+	public Long getIdProyecto() {
 		return this.idProyecto;
 	}
-	public void setIdProyecto(Integer idProyecto) {
+	public void setIdProyecto(Long idProyecto) {
 		this.idProyecto = idProyecto;
 	}
 

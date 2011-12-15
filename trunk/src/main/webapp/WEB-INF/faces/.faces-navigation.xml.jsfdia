@@ -10,9 +10,9 @@
    <PROCESS-ITEM-OUTPUT ID="gestion-usuarios::#usuarios#listar.xhtml"
     NAME="output2" PATH="/usuarios/listar.xhtml"
     TARGET="rules:#usuarios#listar.xhtml" TITLE="gestion-usuarios" model-entity="JSFProcessItemOutput"/>
-   <PROCESS-ITEM-OUTPUT ID="agregar-proyecto::#proyecto#editar.xhtml"
+   <PROCESS-ITEM-OUTPUT ID="crear-proyecto::#proyecto#editar.xhtml"
     NAME="output3" PATH="/proyecto/editar.xhtml"
-    TARGET="rules:#proyecto#editar.xhtml" TITLE="agregar-proyecto" model-entity="JSFProcessItemOutput"/>
+    TARGET="rules:#proyecto#editar.xhtml" TITLE="crear-proyecto" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#usuarios#*" PATH="/usuarios/*"

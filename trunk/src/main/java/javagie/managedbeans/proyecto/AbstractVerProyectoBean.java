@@ -3,6 +3,8 @@ package javagie.managedbeans.proyecto;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javagie.entities.Participante;
@@ -12,6 +14,7 @@ import javagie.util.FacesUtil;
 
 public abstract class AbstractVerProyectoBean {
 
+	private static Logger log = LoggerFactory.getLogger(AbstractVerProyectoBean.class);
 	@Autowired
 	protected ProyectoService proyectoService;
 	
@@ -21,14 +24,15 @@ public abstract class AbstractVerProyectoBean {
 	protected Proyecto proyecto;
 	protected List<Participante> participanteList;
 	
-	protected void irVerProyecto(Long idProyecto) {
-		if(idProyecto != null) {
-			proyecto = proyectoService.traerProyecto(idProyecto);
-			participanteList = proyectoService.traerParticipantes(proyecto);
+	protected void irVerProyecto(Proyecto proyecto) {
+		log.debug("irVerProyecto, el proyecto es {}", proyecto);
+		if(proyecto != null) {
+			this.proyecto = proyectoService.traerProyecto(proyecto.getIdProyecto());
+			this.participanteList = proyectoService.traerParticipantes(proyecto);
 		}
 		else {
-			proyecto = new Proyecto();
-			participanteList = new ArrayList<Participante>();
+			this.proyecto = new Proyecto();
+			this.participanteList = new ArrayList<Participante>();
 		}
 	}
 	

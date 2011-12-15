@@ -15,8 +15,8 @@ public class TipoEstadoProyecto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="id_tipo_estado_proyecto", unique=true, nullable=false)
-	private Integer idTipoEstadoProyecto;
+	@Column(name="id_tipo_estado_proyecto")
+	private Long idTipoEstadoProyecto;
 
 	@Column(nullable=false, length=50)
 	private String nombre;
@@ -28,11 +28,11 @@ public class TipoEstadoProyecto implements Serializable {
     public TipoEstadoProyecto() {
     }
 
-	public Integer getIdTipoEstadoProyecto() {
+	public Long getIdTipoEstadoProyecto() {
 		return this.idTipoEstadoProyecto;
 	}
 
-	public void setIdTipoEstadoProyecto(Integer idTipoEstadoProyecto) {
+	public void setIdTipoEstadoProyecto(Long idTipoEstadoProyecto) {
 		this.idTipoEstadoProyecto = idTipoEstadoProyecto;
 	}
 
