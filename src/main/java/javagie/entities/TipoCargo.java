@@ -28,7 +28,7 @@ public class TipoCargo implements BaseEntity {
 
 	@Id
 	@Column(name="id_tipo_cargo", unique=true, nullable=false)
-	private Integer idTipoCargo;
+	private Long idTipoCargo;
 
 	@Column(length=50)
 	private String nombre;
@@ -44,11 +44,11 @@ public class TipoCargo implements BaseEntity {
     public TipoCargo() {
     }
 
-	public Integer getIdTipoCargo() {
+	public Long getIdTipoCargo() {
 		return this.idTipoCargo;
 	}
 
-	public void setIdTipoCargo(Integer idTipoCargo) {
+	public void setIdTipoCargo(Long idTipoCargo) {
 		this.idTipoCargo = idTipoCargo;
 	}
 

@@ -27,9 +27,8 @@
     	</navigation-case>
     	
     	<navigation-case>
-    		<from-outcome>agregar-proyecto</from-outcome>
+    		<from-outcome>crear-proyecto</from-outcome>
     		<to-view-id>/proyecto/editar.xhtml</to-view-id>
-    		<redirect />
     	</navigation-case>
     	
     </navigation-rule>

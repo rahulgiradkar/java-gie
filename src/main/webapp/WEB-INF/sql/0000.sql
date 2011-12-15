@@ -23,8 +23,8 @@ alter table horas_soporte
 
 create table participante (
    id_participante      bigserial               not null,
-   id_usuario           integer                 not null,
-   id_proyecto          integer                 not null,
+   id_usuario           bigint                 not null,
+   id_proyecto          bigint                 not null,
    id_tipo_cargo        integer                 null
 );
 
