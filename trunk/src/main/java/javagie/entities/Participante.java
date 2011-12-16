@@ -46,7 +46,7 @@ public class Participante implements Serializable {
 	private Usuario usuario;
 
 	//bi-directional many-to-one association to Vitacora
-	@OneToMany(mappedBy="participante")
+	@OneToMany(mappedBy="participante", cascade=CascadeType.REMOVE)
 	private Set<Bitacora> vitacoras;
 
     public Participante() {

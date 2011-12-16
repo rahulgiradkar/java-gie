@@ -64,6 +64,10 @@ public class Usuario implements BaseEntity {
 
     public Usuario() {
     }
+    
+    public Usuario(Long idUsuario) {
+    	this.idUsuario = idUsuario;
+    }
 
 	public Long getIdUsuario() {
 		return this.idUsuario;

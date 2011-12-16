@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javagie.arquitectura.BaseEntity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -55,11 +56,11 @@ public class Proyecto implements BaseEntity {
 	private String nombre;
 
 	//bi-directional many-to-one association to HorasSoporte
-	@OneToMany(mappedBy="proyecto")
+	@OneToMany(mappedBy="proyecto", cascade=CascadeType.REMOVE)
 	private Set<HorasSoporte> horasSoportes;
 
 	//bi-directional many-to-one association to Participante
-	@OneToMany(mappedBy="proyecto")
+	@OneToMany(mappedBy="proyecto", cascade=CascadeType.REMOVE)
 	private Set<Participante> participantes;
 
 	//bi-directional many-to-one association to TipoEstadoProyecto

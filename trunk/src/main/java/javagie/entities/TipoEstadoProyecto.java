@@ -28,6 +28,10 @@ public class TipoEstadoProyecto implements Serializable {
     public TipoEstadoProyecto() {
     }
 
+	public TipoEstadoProyecto(Long idTipoEstado) {
+		this.idTipoEstadoProyecto = idTipoEstado;
+	}
+
 	public Long getIdTipoEstadoProyecto() {
 		return this.idTipoEstadoProyecto;
 	}
