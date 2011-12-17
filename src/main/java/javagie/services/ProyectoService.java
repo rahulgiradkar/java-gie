@@ -6,12 +6,14 @@ import java.util.List;
 import javagie.dao.ParticipanteDao;
 import javagie.dao.ProyectoDao;
 import javagie.dao.TipoCargoDao;
+import javagie.dao.TipoEstadoProyectoDao;
 import javagie.dao.TipoProyectoDao;
 import javagie.dao.UsuarioDao;
 import javagie.dto.FiltrosBuscarProyectoDto;
 import javagie.entities.Participante;
 import javagie.entities.Proyecto;
 import javagie.entities.TipoCargo;
+import javagie.entities.TipoEstadoProyecto;
 import javagie.entities.TipoProyecto;
 import javagie.entities.Usuario;
 
@@ -30,6 +32,9 @@ public class ProyectoService {
 	
 	@Autowired
 	private TipoProyectoDao tipoProyectoDao;
+	
+	@Autowired
+	private TipoEstadoProyectoDao tipoEstadoProyectoDao;
 	
 	@Autowired
 	private TipoCargoDao tipoCargoDao;
@@ -126,6 +131,11 @@ public class ProyectoService {
 			throw new IllegalArgumentException("no se encontro proyecto");
 		}
 		em.remove(proyecto);
+	}
+
+	@Transactional(readOnly=true)
+	public List<TipoEstadoProyecto> traerTodosTipoEstadoProyecto() {
+		return tipoEstadoProyectoDao.traerTodos();
 	}
 	
 	

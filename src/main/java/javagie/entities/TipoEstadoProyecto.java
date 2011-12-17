@@ -11,6 +11,9 @@ import java.util.Set;
  */
 @Entity
 @Table(name="tipo_estado_proyecto")
+@NamedQueries({
+	@NamedQuery(name="TipoEstadoProyecto.traerTodos", query="SELECT t FROM TipoEstadoProyecto t ORDER BY t.nombre ASC")
+})
 public class TipoEstadoProyecto implements Serializable {
 	private static final long serialVersionUID = 1L;
 

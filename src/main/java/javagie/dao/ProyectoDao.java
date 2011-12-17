@@ -59,9 +59,9 @@ public class ProyectoDao {
 	
 	private Criteria buscar(FiltrosBuscarProyectoDto filtrosDto) {
 		String nombre = (filtrosDto.getNombre() != null && filtrosDto.getNombre().trim().length() > 0)?filtrosDto.getNombre().trim():null;
-		Long idUsuario = (filtrosDto.getIdUsuario() != null && filtrosDto.getIdUsuario() != -1)?filtrosDto.getIdUsuario():null;
-		Long idTipoProyecto = (filtrosDto.getIdTipoProyecto() != null && filtrosDto.getIdTipoProyecto() != -1)?filtrosDto.getIdTipoProyecto():null;
-		Long idTipoEstado = (filtrosDto.getIdTipoEstado()!=null && filtrosDto.getIdTipoEstado() != -1)?filtrosDto.getIdTipoEstado():null;
+		Usuario usuario = (filtrosDto.getUsuario() != null)?filtrosDto.getUsuario():null;
+		TipoProyecto tipoProyecto = (filtrosDto.getTipoProyecto() != null)?filtrosDto.getTipoProyecto():null;
+		TipoEstadoProyecto tipoEstadoProyecto = (filtrosDto.getTipoEstadoProyecto()!=null)?filtrosDto.getTipoEstadoProyecto():null;
 		Date fechaInicio = (filtrosDto.getFechaInicial()!=null)?filtrosDto.getFechaInicial():null;
 		Date fechaFin = (filtrosDto.getFechaFinal()!=null)?filtrosDto.getFechaFinal():null;
 		
@@ -71,15 +71,14 @@ public class ProyectoDao {
 		if(nombre!=null) {
 			criteria.add(Restrictions.ilike("nombre", nombre, MatchMode.ANYWHERE));
 		}
-		if(idUsuario!=null) {
-			criteria.createAlias("participantes", "participante");
-			criteria.add(Restrictions.eq("participante.usuario", new Usuario(idUsuario)));
+		if(usuario!=null) {
+			criteria.add(Restrictions.eq("participante.usuario", usuario));
 		}
-		if(idTipoProyecto!=null){
-			criteria.add(Restrictions.eq("tipoProyecto", new TipoProyecto(idTipoProyecto)));
+		if(tipoProyecto!=null){
+			criteria.add(Restrictions.eq("tipoProyecto", tipoProyecto));
 		}
-		if(idTipoEstado!= null) {
-			criteria.add(Restrictions.eq("tipoEstadoProyecto", new TipoEstadoProyecto(idTipoEstado)));
+		if(tipoEstadoProyecto!= null) {
+			criteria.add(Restrictions.eq("tipoEstadoProyecto", tipoEstadoProyecto));
 		}
 		if(fechaInicio!=null && fechaFin!=null) {
 			criteria.add(Restrictions.between("fechaInicio", fechaInicio, fechaFin));
