@@ -21,7 +21,7 @@ public class GenericConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
 		BaseEntity entity;
-        if (value == null) {
+        if (value == null || value.trim().length() < 1) {
             entity = null;
         } else {
             Long id = new Long(value);

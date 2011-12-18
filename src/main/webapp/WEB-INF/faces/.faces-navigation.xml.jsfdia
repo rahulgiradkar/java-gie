@@ -13,6 +13,9 @@
    <PROCESS-ITEM-OUTPUT ID="crear-proyecto::#proyecto#editar.xhtml"
     NAME="output3" PATH="/proyecto/editar.xhtml"
     TARGET="rules:#proyecto#editar.xhtml" TITLE="crear-proyecto" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="buscar-proyectos::#proyecto#buscar.xhtml"
+    NAME="output4" PATH="/proyecto/buscar.xhtml"
+    TARGET="rules:#proyecto#buscar.xhtml" TITLE="buscar-proyectos" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#usuarios#*" PATH="/usuarios/*"
@@ -51,6 +54,9 @@
    <PROCESS-ITEM-OUTPUT ID="editar::#proyecto#editar.xhtml"
     NAME="output1" PATH="/proyecto/editar.xhtml"
     TARGET="rules:#proyecto#editar.xhtml" TITLE="editar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="editar-proyecto::#proyecto#editar.xhtml"
+    NAME="output2" PATH="/proyecto/editar.xhtml"
+    TARGET="rules:#proyecto#editar.xhtml" TITLE="editar-proyecto" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
  <PROCESS-ITEM NAME="rules:#proyecto#buscar.xhtml"

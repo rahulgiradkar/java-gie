@@ -26,6 +26,11 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 	private Usuario usuario;
 	private TipoCargo tipoCargo;
 	private List<Long> idParticipantesEliminar;
+	private boolean verFormParticipante;
+	
+	public String irCrearProyecto() {
+		return irEditarProyecto(null);
+	}
 	
 	public String irEditarProyecto(Proyecto proyecto) {
 		irVerProyecto(proyecto);
@@ -33,6 +38,7 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 		this.tipoCargoList = proyectoService.traerTodosTipoCargo();
 		this.tipoProyectoList = proyectoService.traerTodosTiposDeProyectos();
 		this.idParticipantesEliminar = new ArrayList<Long>();
+		this.verFormParticipante = false;
 		
 		if(this.proyecto.getIdProyecto() == null) {
 			crearProyecto = true;
@@ -41,6 +47,16 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 			crearProyecto = false;
 			return "editar-proyecto";
 		}
+	}
+	
+	public void abrirFormParticipante() {
+		this.verFormParticipante = true;
+		this.usuario = null;
+		this.tipoCargo = null;
+	}
+	
+	public void cancelarFormParticipante() {
+		this.verFormParticipante = false;
 	}
 	
 	public void agregarParticipante() {
@@ -54,6 +70,7 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 		}
 		else {
 			participanteList.add(participante);
+			this.verFormParticipante = false;
 		}
 		
 	}
@@ -130,5 +147,11 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 	}
 	public void setIdParticipantesEliminar(List<Long> idParticipantesEliminar) {
 		this.idParticipantesEliminar = idParticipantesEliminar;
+	}
+	public boolean isVerFormParticipante() {
+		return verFormParticipante;
+	}
+	public void setVerFormParticipante(boolean verFormParticipante) {
+		this.verFormParticipante = verFormParticipante;
 	}
 }

@@ -1,6 +1,8 @@
 package javagie.entities;
 
-import java.io.Serializable;
+
+import javagie.arquitectura.BaseEntity;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -14,8 +16,9 @@ import java.util.Set;
 @NamedQueries({
 	@NamedQuery(name="TipoEstadoProyecto.traerTodos", query="SELECT t FROM TipoEstadoProyecto t ORDER BY t.nombre ASC")
 })
-public class TipoEstadoProyecto implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class TipoEstadoProyecto implements BaseEntity {
+
+	public static final Long ID_INICIADO = 2L;
 
 	@Id
 	@Column(name="id_tipo_estado_proyecto")
@@ -86,7 +89,11 @@ public class TipoEstadoProyecto implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
+
+	@Transient
+	@Override
+	public Object getPrimaryKey() {
+		return idTipoEstadoProyecto;
+	}
 	
 }

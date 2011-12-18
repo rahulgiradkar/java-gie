@@ -8,16 +8,17 @@
 		
 	<ui:define name="contenido">
 	
-		<t:saveState  value="buscarProyectoBean.filtrosDto"/>
-		<t:saveState  value="buscarProyectoBean.proyectoLazyList"/>
-		<t:saveState  value="buscarProyectoBean.tipoProyectoList"/>
-		<t:saveState  value="buscarProyectoBean.usarioList"/>
-		<t:saveState  value="buscarProyectoBean.estadoProyectoList"/>
-		<t:saveState  value="buscarProyectoBean.tablaProyectosRows"/>
+		<t:saveState  value="#{buscarProyectoBean.filtrosDto}"/>
+		<t:saveState  value="#{buscarProyectoBean.proyectoLazyList}"/>
+		<t:saveState  value="#{buscarProyectoBean.tipoProyectoList}"/>
+		<t:saveState  value="#{buscarProyectoBean.usuarioList}"/>
+		<t:saveState  value="#{buscarProyectoBean.estadoProyectoList}"/>
+		<t:saveState  value="#{buscarProyectoBean.tablaProyectosRows}"/>
 	
 		<h1>Buscar Proyecto</h1>
 	
 		<h:form id="buscarForm">
+		
 			<p:panel id="filtrosPanel">
 				<table>
 					<tr>
@@ -59,7 +60,7 @@
 								value="#{buscarProyectoBean.filtrosDto.usuario}" 
 								converter="genericConverter">
 								<f:selectItem itemLabel="Todos"  />
-								<f:selectItems value="#{buscarProyectoBean.usarioList}" var="u"
+								<f:selectItems value="#{buscarProyectoBean.usuarioList}" var="u"
 									itemLabel="#{u.nombres} #{u.apellidos}" itemValue="#{u}"/>
 							</p:selectOneMenu>
 						</td>
@@ -67,18 +68,24 @@
 					<tr>
 						<td>Fecha inicial:</td>
 						<td>
-							<p:calendar id="finicial" value="#{buscarProyectoBean.filtrosDto.fechaInicial}" mode="popup" />
+							<p:calendar id="finicial" value="#{buscarProyectoBean.filtrosDto.fechaInicial}" mode="popup" 
+								locale="es" navigator="true" showOn="button" pattern="dd/MM/yyyy" />
 						</td>
 						
 						<td>Fecha final:</td>
 						<td>
-							<p:calendar id="ffinal" value="#{buscarProyectoBean.filtrosDto.fechaFinal}" mode="popup" />
+							<p:calendar id="ffinal" value="#{buscarProyectoBean.filtrosDto.fechaFinal}" mode="popup" 
+								locale="es" navigator="true" showOn="button" pattern="dd/MM/yyyy" />
 						</td>
 					</tr>
 				</table>
 			
-				<p:commandButton value="Buscar"  />
-			
+				<p:commandButton 
+					id="botonBuscar"
+					value="Buscar"
+					actionListener="#{buscarProyectoBean.buscar}"
+					update="proyectosTabla"
+					process="filtrosPanel" />
 			
 			</p:panel>
 			
@@ -89,7 +96,8 @@
 						lazy="true"
 						paginator="true"
 						var="p"
-						rows="#{buscarProyectoBean.tablaProyectosRows}">
+						rows="#{buscarProyectoBean.tablaProyectosRows}"
+						emptyMessage="No se encontraron proyectos">
 						
 						<p:column headerText="Nombre">
 							<h:outputText value="#{p.nombre}" />
@@ -112,7 +120,7 @@
 						<p:column headerText="Acciones">
 							<p:commandLink 
 								value="editar" 
-								action="#{editarProyectoBean.irEditar(p)}" 
+								action="#{editarProyectoBean.irEditarProyecto(p)}" 
 								ajax="false" />
 							 |  
 							<p:commandLink 

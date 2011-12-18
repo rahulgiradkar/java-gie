@@ -13,7 +13,12 @@
 	</h:head>
 	
 	<h:body>
-
+	
+		<p:ajaxStatus onstart="statusDialog.show()" oncomplete="statusDialog.hide()"/>
+		<p:dialog widgetVar="statusDialog" modal="true" closable="false">
+			Por Favor Espere ...
+		</p:dialog>
+	
 		<div id="columnaCentral">
 		
 			<ui:include src="/templates/includes/header.xhtml" />	
