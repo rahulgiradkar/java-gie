@@ -61,6 +61,7 @@ public class BuscarProyectoBean {
 		log.debug("buscando proyectos");
 		
 		cargarProyectoLazyList();
+		
 	}
 	
 	public void eliminarProyecto(Proyecto proyecto) {

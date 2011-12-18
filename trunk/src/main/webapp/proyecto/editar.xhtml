@@ -16,6 +16,7 @@
 		<t:saveState value="#{editarProyectoBean.tipoCargoList}"/>
 		<t:saveState value="#{editarProyectoBean.tipoProyectoList}"/>
 		<t:saveState value="#{editarProyectoBean.idParticipantesEliminar}"/>
+		<t:saveState value="#{editarProyectoBean.verFormParticipante}"/>
 		
 		
 		<h:form id="editarProyectoForm" prependId="false">
@@ -64,51 +65,70 @@
 			</p:panel>			
 		
 			<p:panel id="partPanel" header="Participantes">
-				<table>
-					<tr><td></td><td><p:message for="usuario" /></td></tr>
-					<tr>
-						<th>Usuario:</th>
-						<td>
-							<p:selectOneMenu 
-								id="usuario"
-								value="#{editarProyectoBean.usuario}" 
-								converter="genericConverter"
-								required="true">
-								<f:selectItem itemLabel="Seleccione..." />
-								<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
-									itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
-							
-							</p:selectOneMenu>
-						</td>
-					</tr>
-					<tr><td></td><td><p:message for="cargo" /></td></tr>
-					<tr>
-						<th>Cargo:</th>
-						<td>
-							<p:selectOneMenu 
-								id="cargo"
-								value="#{editarProyectoBean.tipoCargo}" 
-								converter="genericConverter"
-								required="true">
-								<f:selectItem itemLabel="Seleccione..." />
-								<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
-									itemLabel="#{c.nombre}" itemValue="#{c}"/>
-							
-							</p:selectOneMenu>
-						</td>
-					</tr>
-					<tr>
-						<td></td>
-						<td>
-							<p:commandButton 
-								id="botonAgregar"
-								actionListener="#{editarProyectoBean.agregarParticipante}"
-								value="Agregar"
-								update="partPanel" 
-								process="partPanel" />
-						</td>
-					</tr>
-				</table>
+				
+				<p:commandButton 
+					id="botonVerFormParticipante"
+					actionListener="#{editarProyectoBean.abrirFormParticipante}"
+					value="+"
+					update="partPanel" 
+					process="@this"
+					rendered="#{editarProyectoBean.verFormParticipante == false}" />
+									
+				<p:outputPanel id="formPart" rendered="#{editarProyectoBean.verFormParticipante}">
+					<table>
+						<tr><td></td><td><p:message for="usuario" /></td></tr>
+						<tr>
+							<th>Usuario:</th>
+							<td>
+								<p:selectOneMenu 
+									id="usuario"
+									value="#{editarProyectoBean.usuario}" 
+									converter="genericConverter"
+									required="true">
+									<f:selectItem itemLabel="Seleccione..." />
+									<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
+										itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
+								
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr><td></td><td><p:message for="cargo" /></td></tr>
+						<tr>
+							<th>Cargo:</th>
+							<td>
+								<p:selectOneMenu 
+									id="cargo"
+									value="#{editarProyectoBean.tipoCargo}" 
+									converter="genericConverter"
+									required="true">
+									<f:selectItem itemLabel="Seleccione..." />
+									<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
+										itemLabel="#{c.nombre}" itemValue="#{c}"/>
+								
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<p:commandButton 
+									id="botonAgregar"
+									actionListener="#{editarProyectoBean.agregarParticipante}"
+									value="Agregar"
+									update="partPanel" 
+									process="partPanel" /> 
+								
+								<p:commandButton 
+									id="botonCancelarAgregar"
+									actionListener="#{editarProyectoBean.cancelarFormParticipante}"
+									value="Cancelar"
+									update="partPanel" 
+									process="@this"  />
+									
+							</td>
+						</tr>
+					</table>
+				</p:outputPanel>
 				
 				<p:dataTable
 					id="tablaParticipantes"
@@ -136,8 +156,9 @@
 			</p:panel>				
 	
 			<div class="botoneraForm">
-				<p:commandButton value="Guardar" action="#{editarProyectoBean.guardarProyecto}" ajax="false" />
-				<p:commandButton value="Cancelar" action="cancelar" immediate="true" />
+				<p:commandButton value="Guardar" action="#{editarProyectoBean.guardarProyecto}" 
+					ajax="false"  />
+				<p:commandButton value="Cancelar" action="#{buscarProyectoBean.irBuscarProyectos}" immediate="true" ajax="false" />
 			</div>
 		</h:form>
 		

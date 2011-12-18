@@ -36,6 +36,7 @@ public class ProyectoDao {
 		}
 		
 		Criteria criteria = buscar(filtrosDto);
+		criteria.addOrder(Order.asc("nombre"));
 		
 		return criteria
 				.setFirstResult(pagInicio)
@@ -50,7 +51,7 @@ public class ProyectoDao {
 		
 		Criteria criteria = buscar(filtrosDto);
 		criteria.setProjection(Projections.rowCount());
-	    return (Integer) criteria.uniqueResult();
+	    return ((Long) criteria.uniqueResult()).intValue();
 	}
 	
 	//**************
@@ -84,7 +85,6 @@ public class ProyectoDao {
 			criteria.add(Restrictions.between("fechaInicio", fechaInicio, fechaFin));
 		}
 		
-		criteria.addOrder(Order.asc("nombre"));
 		return criteria;
 	}
 }

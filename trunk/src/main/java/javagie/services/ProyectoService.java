@@ -81,8 +81,11 @@ public class ProyectoService {
 		if(proyecto.getIdProyecto() == null) {
 			//nuevo proyecto
 			proyecto.setFechaInicio(new Date());
-			proyecto.setTipoProyecto(new TipoProyecto(TipoProyecto.ID_TIPO_PROYECTO_DESARROLLO));
+			proyecto.setTipoEstadoProyecto(new TipoEstadoProyecto(TipoEstadoProyecto.ID_INICIADO));
 			em.persist(proyecto);
+		}
+		else {
+			proyecto = em.merge(proyecto);
 		}
 		
 		//actualizar o crear participantes
