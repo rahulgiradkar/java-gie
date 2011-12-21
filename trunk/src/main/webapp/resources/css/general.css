@@ -82,3 +82,19 @@ h3 {
 .botoneraForm input {
 	margin-left: 7px;
 }
+
+.formulariosTable th {
+	text-align: right;
+	font-weight: bold;
+}
+
+.panelGeneral .ui-panel-title {
+	text-transform: uppercase;	
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.ui-message-error {
+	background: none;
+	border: none;
+}
