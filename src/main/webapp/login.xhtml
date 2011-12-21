@@ -7,25 +7,37 @@
 	template="/templates/basictemplate.xhtml">
 		
 	<ui:define name="contenido">
-		<p:panel header="Identificación" >		
+	
+		<f:metadata>
+   			<f:event type="preRenderView" listener="#{loginBean.verificarAuthentificationException}" />
+		</f:metadata>
+		
+		<p:panel header="Identificación" style="width: 318px; margin-left: 349px;" styleClass="panelGeneral" >		
 			<h:form prependId="false">
-				<table>
+				<table class="formulariosTable">
+					<tr>
+						<td></td>
+						<td><p:message for="j_username" /></td>
+					</tr>
 					<tr>
 						<th>Usuario:</th>
 						<td>
-							<h:inputText id="j_username" value="#{loginBean.usuario}" required="true" />
-							<h:message for="j_username" style="color:red;"/>
+							<h:inputText id="j_username" value="#{loginBean.usuario}" required="true" style="width:200px;" />
 						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><p:message for="j_password" /></td>
 					</tr>
 					<tr>
 						<th>Contraseña:</th>
 						<td>
-							<h:inputSecret id="j_password" value="#{loginBean.password}" required="true" />
-							<h:message for="j_password" style="color:red;"/>
+							<h:inputSecret id="j_password" value="#{loginBean.password}" required="true" style="width:200px;" />
 						</td>
 					</tr>
 				</table>
-				<h:commandButton action="#{loginBean.doLogin('/inicio_sesion_check')}" value="Iniciar Sesión"/>   
+				<p:commandButton action="#{loginBean.doLogin('/inicio_sesion_check')}" value="Iniciar Sesión" ajax="false"
+					style="margin-top: 18px; margin-left: 108px;"/>   
 			</h:form>
 		</p:panel>	
 	</ui:define>

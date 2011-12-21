@@ -5,9 +5,9 @@ import java.io.IOException;
 import javagie.beanvalidators.Email;
 import javagie.util.FacesUtil;
 
-import javax.annotation.PostConstruct;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
@@ -35,8 +35,7 @@ public class LoginBean {
 	
 	private String password;
 	
-	@PostConstruct
-	protected void iniciar() {
+	public void verificarAuthentificationException(ComponentSystemEvent event) {
 		
 		Exception e = (Exception) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get(
         		WebAttributes.AUTHENTICATION_EXCEPTION);
@@ -44,7 +43,7 @@ public class LoginBean {
         if (e instanceof AuthenticationException)
         {
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put(WebAttributes.AUTHENTICATION_EXCEPTION, null);
-            facesUtil.addErrorMessage("j_username", e.getMessage());
+            facesUtil.addErrorMessage(e.getMessage());
             
         }
 	}
