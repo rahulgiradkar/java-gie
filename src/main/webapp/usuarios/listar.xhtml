@@ -13,13 +13,15 @@
 			}
 		</h:outputScript>
 	
-		<h2>Lista de usuarios</h2>
+		<h1>Lista de usuarios</h1>
 	
 		<h:form> 
-			<h:inputText value="#{listarUsuariosBean.textoBuscar}" /> 
-			<h:commandButton value="Buscar >" action="#{listarUsuariosBean.buscar()}" />
+			<p:inputText value="#{listarUsuariosBean.textoBuscar}" ajax="false" style="width: 216px; margin-right: 5px;;" /> 
+			<p:commandButton value="Buscar >" action="#{listarUsuariosBean.buscar()}" ajax="false" />
 			
-			<h:commandButton value="Nuevo Usuario" action="#{editarUsuarioBean.irNuevo()}" style="float: right;" />
+			<p:commandButton value="Nuevo Usuario" action="#{editarUsuarioBean.irNuevo()}" style="float: right;" ajax="false" />
+			
+			<div class="separador"></div>
 			
 			<p:dataTable 
 				id="tablaUsuario"

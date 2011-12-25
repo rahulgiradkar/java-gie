@@ -68,11 +68,13 @@ public class ProyectoDao {
 		
 		Session hibernateSession = (Session) em.getDelegate();
 		Criteria criteria = hibernateSession.createCriteria(Proyecto.class);
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		if(nombre!=null) {
 			criteria.add(Restrictions.ilike("nombre", nombre, MatchMode.ANYWHERE));
 		}
 		if(usuario!=null) {
+			criteria.createAlias("participantes", "participante");
 			criteria.add(Restrictions.eq("participante.usuario", usuario));
 		}
 		if(tipoProyecto!=null){

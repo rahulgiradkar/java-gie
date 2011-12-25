@@ -85,7 +85,7 @@ public class ProyectoService {
 			em.persist(proyecto);
 		}
 		else {
-			proyecto = em.merge(proyecto);
+			em.merge(proyecto);
 		}
 		
 		//actualizar o crear participantes

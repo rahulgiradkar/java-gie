@@ -11,28 +11,28 @@
 		<t:saveState value="#{editarUsuarioBean.usuario}"/>
 		
 		<h:form>
-			<p:panel header="Usuario">
+			<p:panel header="Usuario" styleClass="panelGeneral">
 			
-				<table>
+				<table class="formulariosTable">
 					<tr><td></td><td><p:message for="nombres" /></td></tr>
 					<tr>
 						<th>* Nombres:</th>
 						<td>
-							<h:inputText id="nombres" value="#{editarUsuarioBean.usuario.nombres}" required="true" style="width:255px" />
+							<p:inputText id="nombres" value="#{editarUsuarioBean.usuario.nombres}" required="true" style="width:255px" />
 						</td>
 					</tr>
 					<tr><td></td><td><p:message for="apellidos" /></td></tr>
 					<tr>
 						<th>* Apellidos:</th>
 						<td>
-							<h:inputText id="apellidos" value="#{editarUsuarioBean.usuario.apellidos}" required="true" style="width:255px" />
+							<p:inputText id="apellidos" value="#{editarUsuarioBean.usuario.apellidos}" required="true" style="width:255px" />
 						</td>
 					</tr>
 					<tr><td></td><td><p:message for="email" /></td></tr>
 					<tr>
 						<th>* Correo electronico:</th>
 						<td>
-							<h:inputText id="email" value="#{editarUsuarioBean.usuario.email}" required="true" style="width:255px" />
+							<p:inputText id="email" value="#{editarUsuarioBean.usuario.email}" required="true" style="width:255px" />
 						</td>
 					</tr>
 					<tr><td></td><td><p:message for="password1" /></td></tr>
@@ -54,8 +54,9 @@
 			</p:panel>
 	
 			<div class="botoneraForm">
-				<h:commandButton value="Cancelar" action="cancelar" immediate="true" />
-				<h:commandButton value="Guardar" action="#{editarUsuarioBean.guardar()}" />
+				<p:commandButton value="Guardar" action="#{editarUsuarioBean.guardar()}" ajax="false" />
+				<p:commandButton value="Cancelar" action="cancelar" immediate="true" ajax="false" />
+				
 			</div>
 		</h:form>
 		

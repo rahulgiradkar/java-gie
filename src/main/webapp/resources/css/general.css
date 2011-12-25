@@ -13,9 +13,11 @@ body {
 
 h1 {
 	size: 15 px;
-	color: blue;
+	color: rgb(150,150,255);
 	font-weight: bold;
 	text-shadow: graytext;
+	text-transform: uppercase;
+	text-align: center;
 }
 
 h2 {
@@ -83,9 +85,31 @@ h3 {
 	margin-left: 7px;
 }
 
+.botoneraForm button {
+	margin-left: 7px;
+}
+
+.botoneraSecundariaForm {
+	margin-bottom: 16px;
+    margin-top: 8px;
+    text-align: center;
+}
+
+.botoneraSecundariaForm button {
+	margin-left: 7px;
+}
+
 .formulariosTable th {
 	text-align: right;
 	font-weight: bold;
+}
+
+.formulariosTable .columnaIzquierda {
+	
+}
+
+.formulariosTanle .columnaDerecha {
+	
 }
 
 .panelGeneral .ui-panel-title {
@@ -97,4 +121,9 @@ h3 {
 .ui-message-error {
 	background: none;
 	border: none;
+}
+
+.separador {
+	padding-top: 16px;
+}
 }
