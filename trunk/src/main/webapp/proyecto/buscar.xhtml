@@ -19,16 +19,16 @@
 	
 		<h:form id="buscarForm">
 		
-			<p:panel id="filtrosPanel">
-				<table>
+			<p:panel id="filtrosPanel" header="Filtros" styleClass="panelGeneral" style="margin-bottom: 16px; height: 172px;">
+				<table class="formulariosTable">
 					<tr>
 						
-						<td>Nombre:</td>
+						<th class="columnaIzquierda" style="width: 244px;">Nombre:</th>
 						<td>
 							<p:inputText id="nombre" value="#{buscarProyectoBean.filtrosDto.nombre}" />
 						</td>
 						
-						<td>Estado:</td>
+						<th class="columnaDerecha">Estado:</th>
 						<td>
 							<p:selectOneMenu 
 								id="estado" 
@@ -41,7 +41,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Tipo:</td>
+						<th class="columnaIzquierda">Tipo:</th>
 						<td>
 							<p:selectOneMenu 
 								id="tipo"
@@ -53,7 +53,7 @@
 							</p:selectOneMenu>
 						</td>
 						
-						<td>Usuario:</td>
+						<th class="columnaDerecha">Usuario:</th>
 						<td>
 							<p:selectOneMenu 
 								id="usuario"
@@ -66,13 +66,13 @@
 						</td>
 					</tr>
 					<tr>
-						<td>Fecha inicial:</td>
+						<th class="columnaIzquierda">Fecha inicial:</th>
 						<td>
 							<p:calendar id="finicial" value="#{buscarProyectoBean.filtrosDto.fechaInicial}" mode="popup" 
 								locale="es" navigator="true" showOn="button" pattern="dd/MM/yyyy" />
 						</td>
 						
-						<td>Fecha final:</td>
+						<th class="columnaDerecha">Fecha final:</th>
 						<td>
 							<p:calendar id="ffinal" value="#{buscarProyectoBean.filtrosDto.fechaFinal}" mode="popup" 
 								locale="es" navigator="true" showOn="button" pattern="dd/MM/yyyy" />
@@ -80,12 +80,14 @@
 					</tr>
 				</table>
 			
-				<p:commandButton 
-					id="botonBuscar"
-					value="Buscar"
-					actionListener="#{buscarProyectoBean.buscar}"
-					update="proyectosTabla"
-					process="filtrosPanel" />
+				<div class="botoneraSecundariaForm">
+					<p:commandButton 
+						id="botonBuscar"
+						value="Buscar"
+						actionListener="#{buscarProyectoBean.buscar}"
+						update="proyectosTabla"
+						process="filtrosPanel" />
+				</div>
 			
 			</p:panel>
 			

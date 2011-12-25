@@ -29,20 +29,20 @@
 				<h1>Crear Proyecto</h1>
 			</p:outputPanel>
 			
-			<p:panel id="generalesPanel" header="Datos generales">
-				<table>
+			<p:panel id="generalesPanel" header="Datos generales" styleClass="panelGeneral">
+				<table class="formulariosTable">
 					<tr><td></td><td><p:message for="nombre" /></td></tr>
 					<tr>
 						<th>* Nombre:</th>
 						<td>
-							<p:inputText id="nombre" value="#{editarProyectoBean.proyecto.nombre}" required="true"  />
+							<p:inputText id="nombre" value="#{editarProyectoBean.proyecto.nombre}" required="true" style="width: 397px;"  />
 						</td>
 					</tr>
 					<tr><td></td><td><p:message for="descripcion" /></td></tr>
 					<tr>
 						<th>Descripción:</th>
 						<td>
-							<p:inputTextarea id="descripcion" value="#{editarProyectoBean.proyecto.descripcion}" />
+							<p:inputTextarea id="descripcion" value="#{editarProyectoBean.proyecto.descripcion}" style="width: 397px; height: 132px;" />
 						</td>
 					</tr>
 					<tr><td></td><td><p:message for="tipo" /></td></tr>
@@ -64,7 +64,7 @@
 				</table>	
 			</p:panel>			
 		
-			<p:panel id="partPanel" header="Participantes">
+			<p:panel id="partPanel" header="Participantes" styleClass="panelGeneral" style="margin-top: 10px;">
 				
 				<p:commandButton 
 					id="botonVerFormParticipante"
@@ -72,10 +72,11 @@
 					value="+"
 					update="partPanel" 
 					process="@this"
-					rendered="#{editarProyectoBean.verFormParticipante == false}" />
+					rendered="#{editarProyectoBean.verFormParticipante == false}"
+					style="margin-bottom: 5px;" />
 									
 				<p:outputPanel id="formPart" rendered="#{editarProyectoBean.verFormParticipante}">
-					<table>
+					<table class="formulariosTable">
 						<tr><td></td><td><p:message for="usuario" /></td></tr>
 						<tr>
 							<th>Usuario:</th>
@@ -108,32 +109,31 @@
 								</p:selectOneMenu>
 							</td>
 						</tr>
-						<tr>
-							<td></td>
-							<td>
-								<p:commandButton 
-									id="botonAgregar"
-									actionListener="#{editarProyectoBean.agregarParticipante}"
-									value="Agregar"
-									update="partPanel" 
-									process="partPanel" /> 
-								
-								<p:commandButton 
-									id="botonCancelarAgregar"
-									actionListener="#{editarProyectoBean.cancelarFormParticipante}"
-									value="Cancelar"
-									update="partPanel" 
-									process="@this"  />
-									
-							</td>
-						</tr>
 					</table>
+					
+					<div class="botoneraSecundariaForm">
+						<p:commandButton 
+							id="botonAgregar"
+							actionListener="#{editarProyectoBean.agregarParticipante}"
+							value="Agregar"
+							update="partPanel" 
+							process="partPanel" /> 
+						
+						<p:commandButton 
+							id="botonCancelarAgregar"
+							actionListener="#{editarProyectoBean.cancelarFormParticipante}"
+							value="Cancelar"
+							update="partPanel" 
+							process="@this"  />
+					</div>
+					
 				</p:outputPanel>
 				
 				<p:dataTable
 					id="tablaParticipantes"
 					value="#{editarProyectoBean.participanteList}"
-					var="par">
+					var="par"
+					emptyMessage="No existen participantes">
 					
 					<p:column headerText="Usuario">
 						<h:outputText value="#{par.usuario.nombres} #{par.usuario.apellidos}" />
