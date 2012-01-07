@@ -27,6 +27,7 @@
 				<entry key="hibernate.hbm2ddl.auto" value="none" />
 				<entry key="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy" />
 				<entry key="hibernate.connection.charSet" value="UTF-8" />
+				<entry key="hibernate.max_fetch_depth" value="0" />
 				
 				<!-- configuracion hibernate search (lucene) -->
 				<entry key="hibernate.search.default.directory_provider" value="filesystem" />
