@@ -1,0 +1,48 @@
+para ejecutar la aplicacion en tomacat 7 se debe modificar:
+
+
+tomcat memory:
+
+------------------
+
+
+
+linux:
+
+
+
+<apache-tomcat-install>/bin/startup.sh
+
+export CATALINA_OPTS="-Xms1024m -Xmx1024m -XX:MaxPermSize=512M"
+
+
+
+
+windows:
+
+<apache-tomcat-install>/bin/catalina.sh
+
+
+
+despues de la ultima definicion de JAVA_OPTS agregar:
+
+
+set JAVA_OPTS=-Xms256m -Xmx1024m -XX:MaxPermSize=512m -Dfile.encoding=UTF8
+
+
+
+
+
+evitar excepciones al inicio de tomcat:
+
+----------------------------------------
+
+
+en el archivo conf/context.xml de tomcat
+
+ 
+
+<!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    
+<!--  -->
+    <Manager pathname="" />
