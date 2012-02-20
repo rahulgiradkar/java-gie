@@ -9,6 +9,7 @@
 			
 			<p:outputPanel rendered="#{identidad.loggedIn and !identidad.esAdmin}">
 				| <h:commandLink value="editar bitacora" action="#{editarBitacoraBean.irEditarBitacora}" immediate="true" />
+                                | <h:commandLink value="agenda recurso" action="#{agendaRecursoBean.irAgendaRecurso()}" immediate="true" />
 			</p:outputPanel>
 			
 			<p:outputPanel rendered="#{identidad.esAdmin}">

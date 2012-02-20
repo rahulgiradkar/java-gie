@@ -1,46 +1,46 @@
 @CHARSET "UTF-8";
 
 body { 
-	background-color: #87AEC5;
+    background-color: #87AEC5;
     background-image: url('#{resource['images/BannerTileBackground.gif']}');
     background-repeat: repeat-x;
     font-family: arial;
-	font-size: 12px;
-	text-align: center; 
-	margin: 0; 
-	vertical-align: middle; 
+    font-size: 12px;
+    text-align: center; 
+    margin: 0; 
+    vertical-align: middle; 
 }
 
 h1 {
-	size: 15 px;
-	color: rgb(150,150,255);
-	font-weight: bold;
-	text-shadow: graytext;
-	text-transform: uppercase;
-	text-align: center;
+    size: 15 px;
+    color: rgb(150,150,255);
+    font-weight: bold;
+    text-shadow: graytext;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 h2 {
-	size: 15 px;
-	font-weight: bold;
-	text-align: center;
+    size: 15 px;
+    font-weight: bold;
+    text-align: center;
 }
 
 h3 {
-	size: 12 px;
-	font-weight: normal;
+    size: 12 px;
+    font-weight: normal;
 }
 
 #columnaCentral { 
-	width: 984px; 
-	text-align: left; 
-	/*margin: 0 auto;*/
-	padding-left: 7px; 
-	padding-right: 7px; 
-	border-left: 1px solid gray;
-	border-right: 1px solid gray;
-	background-color: white;
-	margin: 0 auto;
+    width: 984px; 
+    text-align: left; 
+    /*margin: 0 auto;*/
+    padding-left: 7px; 
+    padding-right: 7px; 
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    background-color: white;
+    margin: 0 auto;
 }
 
 #columnaCentral .ui-widget {
@@ -48,26 +48,26 @@ h3 {
 }
 
 #logo-header {
-	text-align: center;
+    text-align: center;
 }
 
 #contenidoCentral {
-	padding-top: 15px;
+    padding-top: 15px;
 }
 
 #menu-superior {
-	padding-top: 15px;
-	clear: right;
+    padding-top: 15px;
+    clear: right;
 }
 
 #credenciales-header {
-	float: right;
+    float: right;
 }
 
 #footer-central{
-	clear:right;
-	padding-top: 45px;
-	bottom: 0;
+    clear:right;
+    padding-top: 45px;
+    bottom: 0;
     position: relative;
 }
 
@@ -77,53 +77,53 @@ h3 {
 }
 
 .botoneraForm {
-	float: right;
-	padding-top: 7px;
+    float: right;
+    padding-top: 7px;
 }
 
 .botoneraForm input {
-	margin-left: 7px;
+    margin-left: 7px;
 }
 
 .botoneraForm button {
-	margin-left: 7px;
+    margin-left: 7px;
 }
 
 .botoneraSecundariaForm {
-	margin-bottom: 16px;
+    margin-bottom: 16px;
     margin-top: 8px;
     text-align: center;
 }
 
 .botoneraSecundariaForm button {
-	margin-left: 7px;
+    margin-left: 7px;
 }
 
 .formulariosTable th {
-	text-align: right;
-	font-weight: bold;
+    text-align: right;
+    font-weight: bold;
 }
 
 .formulariosTable .columnaIzquierda {
-	
+
 }
 
 .formulariosTanle .columnaDerecha {
-	
+
 }
 
 .panelGeneral .ui-panel-title {
-	text-transform: uppercase;	
-	font-weight: bold;
-	font-size: 15px;
+    text-transform: uppercase;	
+    font-weight: bold;
+    font-size: 15px;
 }
 
 .ui-message-error {
-	background: none;
-	border: none;
+    background: none;
+    border: none;
 }
 
 .separador {
-	padding-top: 16px;
+    padding-top: 16px;
 }
 }

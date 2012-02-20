@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-	
-	<h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<h:outputStylesheet library="css" name="general.css" target="head" />
-	</h:head>
-	
-	<h:body>
-	
-		<p:ajaxStatus onstart="statusDialog.show()" oncomplete="statusDialog.hide()"/>
-		<p:dialog widgetVar="statusDialog" modal="true" closable="false">
-			Por Favor Espere ...
-		</p:dialog>
-	
-		<div id="columnaCentral">
-		
-			<ui:include src="/templates/includes/header.xhtml" />	
-			
-			<ui:include src="/templates/includes/menuSuperior.xhtml"  />
-				
-			<div id="contenidoCentral">
-				<p:messages  globalOnly="true" autoUpdate="true"  />	
-		        <ui:insert name="contenido"> No se encontro contenido </ui:insert>
-	        </div>
-		
-			<ui:include src="/templates/includes/footer.xhtml" />	
-			
-		</div>
-		
-	</h:body>
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <h:outputStylesheet library="css" name="general.css" target="head" />
+    </h:head>
+
+    <h:body>
+        <h:outputScript library="js" name="primefaces.spanish.locale.js" target="body" />
+        <p:ajaxStatus onstart="statusDialog.show()" oncomplete="statusDialog.hide()"/>
+        <p:dialog widgetVar="statusDialog" modal="true" closable="false">
+            Por Favor Espere ...
+        </p:dialog>
+
+        <div id="columnaCentral">
+
+            <ui:include src="/templates/includes/header.xhtml" />	
+
+            <ui:include src="/templates/includes/menuSuperior.xhtml"  />
+
+            <div id="contenidoCentral">
+                <p:messages  globalOnly="true" autoUpdate="true"  />	
+                <ui:insert name="contenido"> No se encontro contenido </ui:insert>
+            </div>
+
+            <ui:include src="/templates/includes/footer.xhtml" />	
+
+        </div>
+
+    </h:body>
 </html>
