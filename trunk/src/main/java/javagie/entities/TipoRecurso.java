@@ -1,10 +1,7 @@
 package javagie.entities;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -13,25 +10,30 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name="tipo_recurso")
+@NamedQueries({
+    @NamedQuery(name="TipoRecurso.traerTodos", 
+        query="select t from TipoRecurso t "
+        + "order by t.nombre asc")
+})
 public class TipoRecurso implements Serializable {
     
     public static final int ID_SALA = 1;
     public static final int ID_EQUIPO = 2; 
     
     @Id
-    @Column(name="id_recurso")
-    private Integer idRecurso;
+    @Column(name="id_tipo_recurso")
+    private Integer idTipoRecurso;
     
     @Column(name="nombre", nullable=false)
     @Size(max=100)
     private String nombre;
 
-    public Integer getIdRecurso() {
-        return idRecurso;
+    public Integer getIdTipoRecurso() {
+        return idTipoRecurso;
     }
 
-    public void setIdRecurso(Integer idRecurso) {
-        this.idRecurso = idRecurso;
+    public void setIdTipoRecurso(Integer idTipoRecurso) {
+        this.idTipoRecurso = idTipoRecurso;
     }
 
     public String getNombre() {
@@ -51,7 +53,7 @@ public class TipoRecurso implements Serializable {
             return false;
         }
         final TipoRecurso other = (TipoRecurso) obj;
-        if (this.idRecurso != other.idRecurso && (this.idRecurso == null || !this.idRecurso.equals(other.idRecurso))) {
+        if (this.idTipoRecurso != other.idTipoRecurso && (this.idTipoRecurso == null || !this.idTipoRecurso.equals(other.idTipoRecurso))) {
             return false;
         }
         return true;
@@ -59,8 +61,10 @@ public class TipoRecurso implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 13 * hash + (this.idRecurso != null ? this.idRecurso.hashCode() : 0);
+        int hash = 3;
+        hash = 97 * hash + (this.idTipoRecurso != null ? this.idTipoRecurso.hashCode() : 0);
         return hash;
     }
+
+    
 }

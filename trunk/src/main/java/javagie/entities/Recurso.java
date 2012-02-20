@@ -11,6 +11,12 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name="recurso")
+@NamedQueries({
+    @NamedQuery(name="Recurso.traerPorTipoRecurso", 
+        query="select r from Recurso r "
+        + "where r.tipoRecurso = :tipoRecurso "
+        + "order by r.nombre asc")
+})
 public class Recurso implements Serializable {
 
     @Id

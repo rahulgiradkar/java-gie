@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:t="http://myfaces.apache.org/tomahawk" 
+                template="/templates/basictemplate.xhtml">
+
+    <ui:define name="contenido">
+
+        <t:saveState value="#{agendaRecursoBean.agendaModel}" />
+        <t:saveState value="#{agendaRecursoBean.proyectosList}" />
+        <t:saveState value="#{agendaRecursoBean.recursoList}" />
+        <t:saveState value="#{agendaRecursoBean.recursoSelected}" />
+        <t:saveState value="#{agendaRecursoBean.reservaRecurso}" />
+        <t:saveState value="#{agendaRecursoBean.tipoRecursoList}" />
+        <t:saveState value="#{agendaRecursoBean.tipoRecursoSelected}" />
+        
+        <h:form id="agendaForm">
+
+            <h1>Agenda de Recurso</h1>
+            
+            <p:panel id="recursoPanel" header="Recurso" 
+                     styleClass="panelGeneral" style="margin-bottom: 26px;">
+                <table>
+                    <tr>
+                        <td></td>
+                        <td><p:message for="tipoRecurso"/></td>
+                        <td></td>
+                        <td><p:message for="recurso"/></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            *Tipo Recurso:
+                        </td>
+                        <td>
+                            <p:selectOneMenu 
+                                id="tipoRecurso"
+                                value="#{agendaRecursoBean.tipoRecursoSelected}"
+                                required="true" >
+                                <f:converter converterId="tipoRecursoConverter" />
+                                <f:selectItem itemLabel="Seleccionar..." />
+                                <f:selectItems value="#{agendaRecursoBean.tipoRecursoList}"
+                                               var="t" itemLabel="#{t.nombre}" itemValue="#{t}" />
+                                <p:ajax update="agendaForm:recurso" process="@this" 
+                                        listener="#{agendaRecursoBean.cambiarTipoRecurso()}" />
+                            </p:selectOneMenu>
+                        </td>
+                        <td>
+                            *Recurso:
+                        </td>
+                        <td>
+                            <p:selectOneMenu 
+                                id="recurso"
+                                value="#{agendaRecursoBean.recursoSelected}"
+                                required="true" >
+                                <f:converter converterId="recursoConverter" />
+                                <f:selectItem itemLabel="Seleccionar..." />
+                                <f:selectItems value="#{agendaRecursoBean.recursoList}"
+                                               var="r" itemLabel="#{r.nombre}" itemValue="#{r}" />
+                                <p:ajax update="agendaForm:verAgendaBoton agendaForm:agendaPanel" process="@this"
+                                        listener="#{agendaRecursoBean.cambiarRecurso()}"/>
+                            </p:selectOneMenu>
+                        </td>
+                        <td>
+                            <p:commandButton 
+                                id="verAgendaBoton"
+                                value="Ver Agenda"
+                                actionListener="#{agendaRecursoBean.cargarModeloAgenda()}"
+                                update="agendaForm:agendaPanel"
+                                process="agendaForm:recursoPanel"
+                                disabled="#{agendaRecursoBean.recursoSelected == null}"/>
+                        </td>
+                    </tr>
+                </table>
+            </p:panel>
+            
+            <p:outputPanel id="agendaPanel">
+                <p:schedule id="agenda" 
+                    value="#{agendaRecursoBean.agendaModel}"
+                    rendered="#{agendaRecursoBean.agendaModel != null}"
+                    allDaySlot="false" 
+                    locale="es" 
+                    view="agendaWeek"
+                    minTime="9"
+                    maxTime="19" />
+                
+                <h:outputText value="Seleccione un recurso para ver su agenda" 
+                              rendered="#{agendaRecursoBean.agendaModel == null}"/>
+            </p:outputPanel>
+                
+            
+        </h:form>
+        
+        
+    </ui:define>
+</ui:composition>
