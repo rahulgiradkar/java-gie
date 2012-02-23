@@ -15,11 +15,11 @@
         <t:saveState value="#{agendaRecursoBean.reservaRecurso}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoList}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoSelected}" />
-        
+
         <h:form id="agendaForm">
 
             <h1>Agenda de Recurso</h1>
-            
+
             <p:panel id="recursoPanel" header="Recurso" 
                      styleClass="panelGeneral" style="margin-bottom: 26px;">
                 <table>
@@ -75,24 +75,114 @@
                     </tr>
                 </table>
             </p:panel>
-            
+
             <p:outputPanel id="agendaPanel">
                 <p:schedule id="agenda" 
-                    value="#{agendaRecursoBean.agendaModel}"
-                    rendered="#{agendaRecursoBean.agendaModel != null}"
-                    allDaySlot="false" 
-                    locale="es" 
-                    view="agendaWeek"
-                    minTime="9"
-                    maxTime="19" />
-                
+                            widgetVar="agendaWidget"
+                            value="#{agendaRecursoBean.agendaModel}"
+                            rendered="#{agendaRecursoBean.agendaModel != null}"
+                            allDaySlot="false" 
+                            locale="es" 
+                            view="agendaWeek"
+                            minTime="9"
+                            maxTime="19" >
+
+                    <p:ajax event="dateSelect" 
+                            listener="#{agendaRecursoBean.enSeleccionFecha}" 
+                            update="agendaForm:reservaPanel" 
+                            oncomplete="reservaWidget.show()" />
+
+                </p:schedule>
+
                 <h:outputText value="Seleccione un recurso para ver su agenda" 
                               rendered="#{agendaRecursoBean.agendaModel == null}"/>
             </p:outputPanel>
-                
-            
+
+            <p:dialog
+                id="reservaDialog"
+                widgetVar="reservaWidget" 
+                header="Reserva de Recurso" 
+                modal="true"
+                showEffect="clip" 
+                hideEffect="clip">
+                <p:outputPanel id="reservaPanel">
+                    <table class="formulariosTable">
+                        <tr>
+                            <th>Recurso:</th>
+                            <td>
+                                <h:outputText value="#{agendaRecursoBean.reservaRecurso.recurso.nombre}" />
+                            </td>
+                        </tr>
+                        <tr><th></th><td><p:message for="proyecto"/></td></tr>
+                        <tr>
+                            <th>* Proyecto:</th>
+                            <td>
+                                <p:selectOneMenu id="proyecto" 
+                                                 required="true"
+                                                 value="#{agendaRecursoBean.reservaRecurso.proyecto}" >
+                                    <f:converter converterId="proyectoConverter" />
+                                    <f:selectItem itemLabel="Seleccionar..." />
+                                    <f:selectItems value="#{agendaRecursoBean.proyectosList}"
+                                                   var="p" itemLabel="#{p.nombre}" itemValue="#{p}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr><th></th><td><p:message for="fechaInicio"/></td></tr>
+                        <tr>
+                            <th>* Fecha Inicio:</th>
+                            <td>
+                                <p:calendar id="fechaInicio"
+                                            value="#{agendaRecursoBean.reservaRecurso.fechaInicio}" 
+                                            locale="es"
+                                            required="true"
+                                            pattern="dd/MM/yyyy hh:mm a"
+                                            minHour="9" maxHour="19" stepMinute="30"/>
+                            </td>
+                        </tr>
+                        <tr><th></th><td><p:message for="fechaFin"/></td></tr>
+                        <tr>
+                            <th>* Fecha Fin:</th>
+                            <td>
+                                <p:calendar id="fechaFin"
+                                            value="#{agendaRecursoBean.reservaRecurso.fechaFin}" 
+                                            locale="es"
+                                            required="true"
+                                            pattern="dd/MM/yyyy hh:mm a"
+                                            minHour="9" maxHour="19" stepMinute="30" />
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="formulariosTable">
+                        <tr><td><p:message for="observacion"/></td></tr>
+                        <tr>
+                            <td>
+                                <b>Observación:</b><br/>
+                                <h:inputTextarea id="observacion" 
+                                                 style="width: 280px;height: 60px;"
+                                                 value="#{agendaRecursoBean.reservaRecurso.observacion}"/>
+                            </td>
+                        </tr>
+                        <tr><td><p:message for="guardarReservaBoton" /></td></tr>
+                        <tr><td><p:message for="eliminarReservaBoton" /></td></tr>
+                    </table>
+                    <div class="botoneraForm">
+                        <p:commandButton id="eliminarReservaBoton" 
+                                         value="Eliminar" 
+                                         rendered="#{agendaRecursoBean.reservaRecurso.idReserva != null}"/>
+                        <p:commandButton id="guardarReservaBoton"
+                                         value="Guardar" 
+                                         actionListener="#{agendaRecursoBean.guardarReservaRecurso()}"
+                                         update="agendaForm:reservaPanel"/>
+                        <p:commandButton id="cancelarReservaBoton"
+                                         value="Cancelar" 
+                                         onclick="reservaWidget.hide();"
+                                         immediate="true"/>
+                    </div>
+                </p:outputPanel>
+            </p:dialog>
+
         </h:form>
-        
-        
+
+
     </ui:define>
 </ui:composition>
