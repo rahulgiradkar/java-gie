@@ -13,6 +13,18 @@ import javax.persistence.*;
 @Entity
 @Table(name="reserva_recurso")
 @PrimaryKeyJoinColumn(name="id_reserva_recurso")
+@NamedQueries({
+    @NamedQuery(name="ReservaRecurso.traerPorRecurso", 
+        query="select r from ReservaRecurso r "
+        + "where :recurso = r.recurso "
+        + "order by r.fechaInicio asc"),
+    @NamedQuery(name="ReservaRecurso.intersectan", 
+        query="select r from ReservaRecurso r "
+        + "where :idReserva != r.idReserva "
+        + "and :recurso = r.recurso "
+        + "and :fechaInicio < r.fechaFin "
+        + "and :fechaFin > r.fechaInicio")
+})
 public class ReservaRecurso extends Reserva {
     
     @ManyToOne

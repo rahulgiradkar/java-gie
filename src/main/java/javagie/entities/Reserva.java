@@ -3,6 +3,7 @@ package javagie.entities;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -31,6 +32,7 @@ public abstract class Reserva implements Serializable{
     @Column(name="fecha_fin", nullable=false)
     protected Date fechaFin;
     
+    @Size(max=255)
     @Column(name="observacion")
     protected String observacion;
 
