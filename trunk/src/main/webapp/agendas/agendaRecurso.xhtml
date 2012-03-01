@@ -15,6 +15,9 @@
         <t:saveState value="#{agendaRecursoBean.reservaRecurso}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoList}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoSelected}" />
+        <t:saveState value="#{agendaRecursoBean.puedeEditarEvento}" />
+        <t:saveState value="#{agendaRecursoBean.eventEditando}" />
+        <t:saveState value="#{agendaRecursoBean.schedule}" />
 
         <h:form id="agendaForm">
 
@@ -85,10 +88,18 @@
                             locale="es" 
                             view="agendaWeek"
                             minTime="9"
-                            maxTime="19" >
+                            maxTime="19" 
+                            draggable="false"
+                            resizable="false"
+                            binding="#{agendaRecursoBean.schedule}">
 
                     <p:ajax event="dateSelect" 
                             listener="#{agendaRecursoBean.enSeleccionFecha}" 
+                            update="agendaForm:reservaPanel" 
+                            oncomplete="reservaWidget.show()" />
+                    
+                    <p:ajax event="eventSelect" 
+                            listener="#{agendaRecursoBean.enSeleccionEvento}" 
                             update="agendaForm:reservaPanel" 
                             oncomplete="reservaWidget.show()" />
 
@@ -119,12 +130,16 @@
                             <td>
                                 <p:selectOneMenu id="proyecto" 
                                                  required="true"
-                                                 value="#{agendaRecursoBean.reservaRecurso.proyecto}" >
+                                                 value="#{agendaRecursoBean.reservaRecurso.proyecto}" 
+                                                 rendered="#{agendaRecursoBean.puedeEditarEvento == true}">
                                     <f:converter converterId="proyectoConverter" />
                                     <f:selectItem itemLabel="Seleccionar..." />
                                     <f:selectItems value="#{agendaRecursoBean.proyectosList}"
                                                    var="p" itemLabel="#{p.nombre}" itemValue="#{p}" />
                                 </p:selectOneMenu>
+                                
+                                <h:outputText value="#{agendaRecursoBean.reservaRecurso.proyecto.nombre}" 
+                                              rendered="#{agendaRecursoBean.puedeEditarEvento == false}"/>
                             </td>
                         </tr>
                         <tr><th></th><td><p:message for="fechaInicio"/></td></tr>
@@ -136,7 +151,8 @@
                                             locale="es"
                                             required="true"
                                             pattern="dd/MM/yyyy hh:mm a"
-                                            minHour="9" maxHour="19" stepMinute="30"/>
+                                            minHour="9" maxHour="19" stepMinute="30" 
+                                            disabled="#{agendaRecursoBean.puedeEditarEvento == false}"/>
                             </td>
                         </tr>
                         <tr><th></th><td><p:message for="fechaFin"/></td></tr>
@@ -148,7 +164,8 @@
                                             locale="es"
                                             required="true"
                                             pattern="dd/MM/yyyy hh:mm a"
-                                            minHour="9" maxHour="19" stepMinute="30" />
+                                            minHour="9" maxHour="19" stepMinute="30" 
+                                            disabled="#{agendaRecursoBean.puedeEditarEvento == false}"/>
                             </td>
                         </tr>
                     </table>
@@ -168,11 +185,17 @@
                     <div class="botoneraForm">
                         <p:commandButton id="eliminarReservaBoton" 
                                          value="Eliminar" 
-                                         rendered="#{agendaRecursoBean.reservaRecurso.idReserva != null}"/>
+                                         process="agendaForm:reservaPanel"
+                                         update="agendaForm:reservaPanel"
+                                         actionListener="#{agendaRecursoBean.eliminarReservaRecurso()}"
+                                         rendered="#{agendaRecursoBean.reservaRecurso.idReserva != null
+                                                     and agendaRecursoBean.puedeEditarEvento == true}"/>
                         <p:commandButton id="guardarReservaBoton"
                                          value="Guardar" 
                                          actionListener="#{agendaRecursoBean.guardarReservaRecurso()}"
-                                         update="agendaForm:reservaPanel"/>
+                                         update="agendaForm:reservaPanel" 
+                                         process="agendaForm:reservaPanel"
+                                         rendered="#{agendaRecursoBean.puedeEditarEvento == true}"/>
                         <p:commandButton id="cancelarReservaBoton"
                                          value="Cancelar" 
                                          onclick="reservaWidget.hide();"
