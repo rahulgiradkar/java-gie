@@ -9,6 +9,7 @@ import javagie.entities.ReservaRecurso;
 import javagie.exceptions.LogicaNegocioException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +42,17 @@ public class ReservaService {
         }
         
         //si no intercepta se guarda
+        if(reservaRecurso.getIdReserva() == null) {
+            em.persist(reservaRecurso);
+            return;
+        }
         em.merge(reservaRecurso);
     }
-    
-    
+
+    @Transactional(readOnly=false)
+    public void eliminarReservaRecurso(ReservaRecurso reservaRecurso) {
+        reservaRecurso = em.find(ReservaRecurso.class, reservaRecurso.getIdReserva());
+        em.remove(reservaRecurso);
+    }
     
 }

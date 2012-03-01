@@ -9,8 +9,10 @@ import javagie.services.ProyectoService;
 import javagie.services.RecursoService;
 import javagie.services.SecurityService;
 import javagie.util.ConstantesUtil;
+import org.primefaces.component.schedule.Schedule;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.DateSelectEvent;
+import org.primefaces.event.ScheduleEntrySelectEvent;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleEvent;
@@ -39,6 +41,9 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
     private List<Recurso> recursoList;
     private Recurso recursoSelected;
     private ReservaRecurso reservaRecurso;
+    private boolean puedeEditarEvento = false;
+    private ScheduleEvent eventEditando = null;
+    private Schedule schedule = null;
 
     public String irAgendaRecurso() {
         proyectosList = proyectoService.traerProyectosPorEmailUsuario(identidad.getEmail());
@@ -56,9 +61,11 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
         agendaModel = null;
     }
 
-    public void enSeleccionFecha(DateSelectEvent selectEvent) {
+    public void enSeleccionFecha(DateSelectEvent selectDate) {
+        eventEditando = null;
+        puedeEditarEvento = true;
         Calendar dateSelectedCal = Calendar.getInstance();
-        dateSelectedCal.setTime(selectEvent.getDate());
+        dateSelectedCal.setTime(selectDate.getDate());
         dateSelectedCal.add(Calendar.HOUR, -1);
         Date dateSelected = dateSelectedCal.getTime();
         
@@ -67,12 +74,33 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
         reservaRecurso.setFechaInicio(new Date(dateSelected.getTime()));
         reservaRecurso.setFechaFin(new Date(dateSelected.getTime()));
         reservaRecurso.setReservadoPor(securityService.traerUsuarioPorEmail(identidad.getEmail()));
+
     }
+    
+     public void enSeleccionEvento(ScheduleEntrySelectEvent selectEvent) {
+         eventEditando = selectEvent.getScheduleEvent();
+         reservaRecurso = (ReservaRecurso)eventEditando.getData();
+         
+         if(reservaRecurso.getReservadoPor().getEmail().equals(identidad.getEmail())) {
+             puedeEditarEvento = true;
+         }
+         else {
+             puedeEditarEvento = false;
+         }
+     }
 
     public void guardarReservaRecurso() {
         try {
             reservaService.guardarReservaRecurso(reservaRecurso);
-            agendaModel.addEvent(instanciarAgendaEvent(reservaRecurso));
+            if(eventEditando == null) {
+                agendaModel.addEvent(instanciarAgendaEvent(reservaRecurso));
+            }
+            else {
+                agendaModel.deleteEvent(eventEditando);
+                agendaModel.addEvent(instanciarAgendaEvent(reservaRecurso));
+            }
+            
+            schedule.setInitialDate(reservaRecurso.getFechaInicio());
             
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("agendaWidget.update()");
@@ -90,6 +118,27 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
     }
 
     public void eliminarReservaRecurso() {
+        try {
+            log.debug("entre a eliminar reserva recurso");
+            reservaService.eliminarReservaRecurso(reservaRecurso);
+            agendaModel.deleteEvent(eventEditando);
+            eventEditando = null;
+            
+            schedule.setInitialDate(reservaRecurso.getFechaInicio());
+            
+            RequestContext context = RequestContext.getCurrentInstance();
+            context.execute("agendaWidget.update()");
+            context.execute("reservaWidget.hide()"); //llama a una funcion javascript en la vista !!! wow
+            context.addPartialUpdateTarget("agendaForm:agenda"); //llama a un update desde el managedBean!
+            log.debug("sali de eliminar reserva recurso");
+            
+        } catch (LogicaNegocioException ex) {
+            log.error("error al eliminar reserva", ex);
+            facesUtil.addErrorMessage("agendaForm:guardarReservaBoton", ex.getMessage());
+        } catch (Exception ex) {
+            log.error("error interno", ex);
+            facesUtil.addErrorMessage("agendaForm:guardarReservaBoton", ConstantesUtil.MSJ_ERROR_INTERNO);
+        }
     }
 
     @Override
@@ -181,4 +230,29 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
     public void setTipoRecursoSelected(TipoRecurso tipoRecursoSelected) {
         this.tipoRecursoSelected = tipoRecursoSelected;
     }
+
+    public boolean isPuedeEditarEvento() {
+        return puedeEditarEvento;
+    }
+
+    public void setPuedeEditarEvento(boolean puedeEditarEvento) {
+        this.puedeEditarEvento = puedeEditarEvento;
+    }
+
+    public ScheduleEvent getEventEditando() {
+        return eventEditando;
+    }
+
+    public void setEventEditando(ScheduleEvent eventEditando) {
+        this.eventEditando = eventEditando;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(Schedule schedule) {
+        this.schedule = schedule;
+    }
+    
 }
