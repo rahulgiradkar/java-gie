@@ -5,7 +5,8 @@
 	<!-- Cambia el estilo de primefaces -->
 	<context-param>  
         <param-name>primefaces.THEME</param-name>  
-        <param-value>bluesky</param-value>  
+        <!--param-value>bluesky</param-value-->
+		<param-value>none</param-value>
     </context-param>  
 	
 	<!-- Enables special Facelets debug output during development -->
