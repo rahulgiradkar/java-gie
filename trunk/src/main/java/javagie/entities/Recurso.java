@@ -12,6 +12,9 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="recurso")
 @NamedQueries({
+    @NamedQuery(name="Recurso.traerPornombre",
+        query="select r from Recurso r "
+        + "where r.nombre = :nombreRecurso"),
     @NamedQuery(name="Recurso.traerPorTipoRecurso", 
         query="select r from Recurso r "
         + "where r.tipoRecurso = :tipoRecurso "

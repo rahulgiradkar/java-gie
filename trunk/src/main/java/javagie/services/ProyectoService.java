@@ -138,4 +138,9 @@ public class ProyectoService {
     public List<Proyecto> traerProyectosPorEmailUsuario(String email) {
         return proyectoDao.traerPorEmailUsuario(email);
     }
+
+    @Transactional(readOnly=true)
+    public List<Proyecto> traerProyectosActivos() {
+        return proyectoDao.traerProyectosActivos();
+    }
 }

@@ -90,4 +90,8 @@ public class ProyectoDao {
                 .setParameter("email", email)
                 .getResultList();
     }
+
+    public List<Proyecto> traerProyectosActivos() {
+        return em.createNamedQuery("Proyecto.traerProyectosActivos").getResultList();
+    }
 }

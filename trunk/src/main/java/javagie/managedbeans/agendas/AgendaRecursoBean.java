@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import javagie.entities.*;
 import javagie.exceptions.LogicaNegocioException;
+import javagie.exceptions.NombreRecursoRepetidoException;
 import javagie.services.ProyectoService;
 import javagie.services.RecursoService;
 import javagie.services.SecurityService;
@@ -38,15 +39,22 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
     private List<Proyecto> proyectosList;
     private List<TipoRecurso> tipoRecursoList;
     private TipoRecurso tipoRecursoSelected;
+    private TipoRecurso tipoRecursoSelected2;
     private List<Recurso> recursoList;
     private Recurso recursoSelected;
+    private Recurso nuevoRecurso;
     private ReservaRecurso reservaRecurso;
     private boolean puedeEditarEvento = false;
     private ScheduleEvent eventEditando = null;
     private Schedule schedule = null;
 
     public String irAgendaRecurso() {
-        proyectosList = proyectoService.traerProyectosPorEmailUsuario(identidad.getEmail());
+        if(identidad.isEsAdmin()) {
+            proyectosList = proyectoService.traerProyectosActivos();
+        }
+        else {
+            proyectosList = proyectoService.traerProyectosPorEmailUsuario(identidad.getEmail());
+        }
         tipoRecursoList = recursoService.traerTipoRecursosTodos();
         return "agenda-recurso";
     }
@@ -81,7 +89,8 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
          eventEditando = selectEvent.getScheduleEvent();
          reservaRecurso = (ReservaRecurso)eventEditando.getData();
          
-         if(reservaRecurso.getReservadoPor().getEmail().equals(identidad.getEmail())) {
+         if(reservaRecurso.getReservadoPor().getEmail().equals(identidad.getEmail()) 
+                 || identidad.isEsAdmin()) {
              puedeEditarEvento = true;
          }
          else {
@@ -105,8 +114,7 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("agendaWidget.update()");
             context.execute("reservaWidget.hide()"); //llama a una funcion javascript en la vista !!! wow
-            context.addPartialUpdateTarget("agendaForm:agenda"); //llama a un update desde el managedBean!
-            
+            context.update("agendaForm:agenda"); //llama a un update desde el managedBean!
         } catch (LogicaNegocioException ex) {
             log.error("error al guardar reserva", ex);
             facesUtil.addErrorMessage("agendaForm:guardarReservaBoton", ex.getMessage());
@@ -129,7 +137,7 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
             RequestContext context = RequestContext.getCurrentInstance();
             context.execute("agendaWidget.update()");
             context.execute("reservaWidget.hide()"); //llama a una funcion javascript en la vista !!! wow
-            context.addPartialUpdateTarget("agendaForm:agenda"); //llama a un update desde el managedBean!
+            context.update("agendaForm:agenda"); //llama a un update desde el managedBean!
             log.debug("sali de eliminar reserva recurso");
             
         } catch (LogicaNegocioException ex) {
@@ -138,6 +146,31 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
         } catch (Exception ex) {
             log.error("error interno", ex);
             facesUtil.addErrorMessage("agendaForm:guardarReservaBoton", ConstantesUtil.MSJ_ERROR_INTERNO);
+        }
+    }
+    
+    public void abrirFormNuevoRecurso() {
+        nuevoRecurso = new Recurso();
+    }
+    
+    public void crearNuevoRecurso() {
+        RequestContext requestContext = RequestContext.getCurrentInstance();
+        try {
+            recursoService.crearNuevoRecurso(nuevoRecurso);
+            tipoRecursoSelected = nuevoRecurso.getTipoRecurso();
+            recursoSelected = nuevoRecurso;
+            nuevoRecurso = null;
+            
+            facesUtil.addInfoMessage(ConstantesUtil.MSJ_INFO_CAMBIOS_REALIZADOS);
+            requestContext.execute("recursoWidget.hide();");
+            requestContext.update("agendaForm:recursoPanel");
+        }
+        catch(NombreRecursoRepetidoException ex) {
+            facesUtil.addErrorMessage("agendaForm:nombreRecurso", ex.getMessage());
+        }
+        catch(Exception ex) {
+            log.error("error crear nuevo recurso", ex);
+            facesUtil.addErrorMessage("agendaForm:aceptarNuevoBoton", ConstantesUtil.MSJ_ERROR_INTERNO);
         }
     }
 
@@ -253,6 +286,22 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
 
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
+    }
+
+    public TipoRecurso getTipoRecursoSelected2() {
+        return tipoRecursoSelected2;
+    }
+
+    public void setTipoRecursoSelected2(TipoRecurso tipoRecursoSelected2) {
+        this.tipoRecursoSelected2 = tipoRecursoSelected2;
+    }
+
+    public Recurso getNuevoRecurso() {
+        return nuevoRecurso;
+    }
+
+    public void setNuevoRecurso(Recurso nuevoRecurso) {
+        this.nuevoRecurso = nuevoRecurso;
     }
     
 }

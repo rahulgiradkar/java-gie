@@ -14,6 +14,10 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "proyecto")
 @NamedQueries({
+    @NamedQuery(name="Proyecto.traerProyectosActivos", 
+        query="select p from Proyecto p "
+        + "where p.tipoEstadoProyecto.idTipoEstadoProyecto not in (6,7) "
+        + "order by p.nombre asc "),
     @NamedQuery(name = "Proyecto.traerProyectosPorEmailUsuario",
     query = "SELECT DISTINCT p FROM Proyecto p "
     + "JOIN p.participantes pa "
