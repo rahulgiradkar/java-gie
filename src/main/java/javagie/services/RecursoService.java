@@ -5,6 +5,7 @@ import javagie.dao.RecursoDao;
 import javagie.dao.TipoRecursoDao;
 import javagie.entities.Recurso;
 import javagie.entities.TipoRecurso;
+import javagie.exceptions.NombreRecursoRepetidoException;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,18 @@ public class RecursoService {
     @Transactional(readOnly=true)
     public List<Recurso> traerPorTipoRecurso(TipoRecurso tipoRecurso) {
         return recursoDao.traerPorTipoRecurso(tipoRecurso);
+    }
+
+    @Transactional(readOnly=false)
+    public void crearNuevoRecurso(Recurso nuevoRecurso) {
+        
+        //verificar si existe otro recurso con el mismo nombre
+        nuevoRecurso.setNombre(nuevoRecurso.getNombre().trim());
+        Recurso recursoRepetido = recursoDao.traerPorNombre(nuevoRecurso.getNombre());
+        if(recursoRepetido != null) {
+            throw new NombreRecursoRepetidoException("recurso repetido");
+        }
+        em.persist(nuevoRecurso);
     }
     
 }

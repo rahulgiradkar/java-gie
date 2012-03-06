@@ -15,16 +15,27 @@
         <t:saveState value="#{agendaRecursoBean.reservaRecurso}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoList}" />
         <t:saveState value="#{agendaRecursoBean.tipoRecursoSelected}" />
+        <t:saveState value="#{agendaRecursoBean.tipoRecursoSelected2}" />
         <t:saveState value="#{agendaRecursoBean.puedeEditarEvento}" />
         <t:saveState value="#{agendaRecursoBean.eventEditando}" />
         <t:saveState value="#{agendaRecursoBean.schedule}" />
+        <t:saveState value="#{agendaRecursoBean.nuevoRecurso}" />
 
         <h:form id="agendaForm">
 
             <h1>Agenda de Recurso</h1>
 
-            <p:panel id="recursoPanel" header="Recurso" 
+            <p:panel id="recursoPanel"
                      styleClass="panelGeneral" style="margin-bottom: 26px;">
+                <f:facet name="header">
+                    Recurso 
+                    <p:commandLink value="(agregar nuevo recurso)" 
+                                   style="text-transform: lowercase"
+                                   actionListener="#{agendaRecursoBean.abrirFormNuevoRecurso}"
+                                   process="@this" update="agendaForm:nuevoRecursoPanel"
+                                   rendered="#{identidad.esAdmin}" 
+                                   oncomplete="recursoWidget.show();"/>
+                </f:facet>
                 <table>
                     <tr>
                         <td></td>
@@ -201,6 +212,67 @@
                                          onclick="reservaWidget.hide();"
                                          immediate="true"/>
                     </div>
+                </p:outputPanel>
+            </p:dialog>
+            
+            <p:dialog
+                id="recursoDialog"
+                widgetVar="recursoWidget" 
+                header="Nuevo Recurso" 
+                modal="true"
+                showEffect="clip" 
+                hideEffect="clip">
+                <p:outputPanel id="nuevoRecursoPanel">
+                    <table class="formulariosTable">
+                        <tr><th></th><td><p:message for="tipoRecurso2"/></td></tr>
+                        <tr>
+                            <th>
+                                *Tipo Recurso:
+                            </th>
+                            <td>
+                                <p:selectOneMenu 
+                                    id="tipoRecurso2"
+                                    value="#{agendaRecursoBean.nuevoRecurso.tipoRecurso}"
+                                    required="true" >
+                                    <f:converter converterId="tipoRecursoConverter" />
+                                    <f:selectItem itemLabel="Seleccionar..." />
+                                    <f:selectItems value="#{agendaRecursoBean.tipoRecursoList}"
+                                                   var="t" itemLabel="#{t.nombre}" itemValue="#{t}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr><th></th><td><p:message for="nombreRecurso"/></td></tr>
+                        <tr>
+                            <th>
+                                *Nombre Recurso:
+                            </th>
+                            <td>
+                                <p:inputText id="nombreRecurso" value="#{agendaRecursoBean.nuevoRecurso.nombre}"
+                                             required="true" />
+                            </td>
+                        </tr>
+                        <tr><th></th><td><p:message for="detalleRecurso"/></td></tr>
+                        <tr>
+                            <th>
+                                Detalle Recurso:
+                            </th>
+                            <td>
+                                <p:inputTextarea id="detalleRecurso" value="#{agendaRecursoBean.nuevoRecurso.detalle}" />
+                            </td>
+                        </tr>
+                    </table>
+                        
+                    <p:message for="aceptarNuevoBoton" />
+                    <div class="botoneraForm">
+                        <p:commandButton id="aceptarNuevoBoton"
+                                         value="Aceptar"
+                                         process="agendaForm:nuevoRecursoPanel"
+                                         update="agendaForm:nuevoRecursoPanel"
+                                         actionListener="#{agendaRecursoBean.crearNuevoRecurso}"/>
+                        <p:commandButton value="Cancelar" onclick="recursoWidget.hide();" 
+                                         process="@none" update="@none" />
+                    </div>
+                        
                 </p:outputPanel>
             </p:dialog>
 
