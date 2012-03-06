@@ -3,15 +3,9 @@ package javagie.managedbeans.proyecto;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
-import javagie.entities.Participante;
-import javagie.entities.Proyecto;
-import javagie.entities.TipoCargo;
-import javagie.entities.TipoProyecto;
-import javagie.entities.Usuario;
+import javagie.entities.*;
 import javagie.exceptions.LogicaNegocioException;
 import javagie.util.ConstantesUtil;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -66,7 +60,7 @@ public class EditarProyectoBean extends AbstractVerProyectoBean {
 		participante.setProyecto(proyecto);
 		
 		if(participanteList.contains(participante)) {
-			facesUtil.addErrorMessage("usuario", ConstantesUtil.MSJ_ERROR_YA_EXISTE_PARTICIPANTE);
+			facesUtil.addErrorMessage("editarForm:usuario", ConstantesUtil.MSJ_ERROR_YA_EXISTE_PARTICIPANTE);
 		}
 		else {
 			participanteList.add(participante);

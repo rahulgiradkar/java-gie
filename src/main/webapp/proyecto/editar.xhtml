@@ -19,7 +19,7 @@
 		<t:saveState value="#{editarProyectoBean.verFormParticipante}"/>
 		
 		
-		<h:form id="editarProyectoForm" prependId="false">
+                <h:form id="editarForm">
 			
 			<p:outputPanel rendered="#{!editarProyectoBean.crearProyecto}">
 				<h1>Editar Proyecto</h1>
@@ -70,7 +70,7 @@
 					id="botonVerFormParticipante"
 					actionListener="#{editarProyectoBean.abrirFormParticipante}"
 					value="+"
-					update="partPanel" 
+					update="editarForm:partPanel" 
 					process="@this"
 					rendered="#{editarProyectoBean.verFormParticipante == false}"
 					style="margin-bottom: 5px;" />
@@ -89,7 +89,6 @@
 									<f:selectItem itemLabel="Seleccione..." />
 									<f:selectItems value="#{editarProyectoBean.usuarioList}" var="user"
 										itemLabel="#{user.apellidos} #{user.nombres}" itemValue="#{user}"/>
-								
 								</p:selectOneMenu>
 							</td>
 						</tr>
@@ -105,7 +104,6 @@
 									<f:selectItem itemLabel="Seleccione..." />
 									<f:selectItems value="#{editarProyectoBean.tipoCargoList}" var="c"
 										itemLabel="#{c.nombre}" itemValue="#{c}"/>
-								
 								</p:selectOneMenu>
 							</td>
 						</tr>
@@ -116,14 +114,14 @@
 							id="botonAgregar"
 							actionListener="#{editarProyectoBean.agregarParticipante}"
 							value="Agregar"
-							update="partPanel" 
-							process="partPanel" /> 
+							update="editarForm:partPanel" 
+							process="editarForm:partPanel" /> 
 						
 						<p:commandButton 
 							id="botonCancelarAgregar"
 							actionListener="#{editarProyectoBean.cancelarFormParticipante}"
 							value="Cancelar"
-							update="partPanel" 
+							update="editarForm:partPanel" 
 							process="@this"  />
 					</div>
 					
@@ -147,7 +145,7 @@
 						<p:commandLink 
 							value="X"
 							actionListener="#{editarProyectoBean.eliminarParticipante(par)}"
-							update="partPanel"
+							update=":editarForm:partPanel"
 							process="@this"  />
 					</p:column>
 				
