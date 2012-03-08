@@ -29,12 +29,14 @@
                      styleClass="panelGeneral" style="margin-bottom: 26px;">
                 <f:facet name="header">
                     Recurso 
-                    <p:commandLink value="(agregar nuevo recurso)" 
-                                   style="text-transform: lowercase"
+                    <p:commandLink style="text-transform: lowercase"
                                    actionListener="#{agendaRecursoBean.abrirFormNuevoRecurso}"
                                    process="@this" update="agendaForm:nuevoRecursoPanel"
                                    rendered="#{identidad.esAdmin}" 
-                                   oncomplete="recursoWidget.show();"/>
+                                   oncomplete="recursoWidget.show();">
+                        <img src="#{request.contextPath}/resources/images/page_add_16x16.png" 
+                             title="Nuevo Recurso" />
+                    </p:commandLink>
                 </f:facet>
                 <table>
                     <tr>
@@ -247,8 +249,7 @@
                                 *Nombre Recurso:
                             </th>
                             <td>
-                                <p:inputText id="nombreRecurso" value="#{agendaRecursoBean.nuevoRecurso.nombre}"
-                                             required="true" />
+                                <p:inputText id="nombreRecurso" styleClass="normal" value="#{agendaRecursoBean.nuevoRecurso.nombre}" required="true"  />
                             </td>
                         </tr>
                         <tr><th></th><td><p:message for="detalleRecurso"/></td></tr>
@@ -257,7 +258,7 @@
                                 Detalle Recurso:
                             </th>
                             <td>
-                                <p:inputTextarea id="detalleRecurso" value="#{agendaRecursoBean.nuevoRecurso.detalle}" />
+                                <p:inputTextarea id="detalleRecurso" styleClass="normal" value="#{agendaRecursoBean.nuevoRecurso.detalle}" />
                             </td>
                         </tr>
                     </table>

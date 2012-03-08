@@ -159,7 +159,7 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
             recursoService.crearNuevoRecurso(nuevoRecurso);
             tipoRecursoSelected = nuevoRecurso.getTipoRecurso();
             recursoSelected = nuevoRecurso;
-            nuevoRecurso = null;
+            recursoList = recursoService.traerPorTipoRecurso(tipoRecursoSelected);
             
             facesUtil.addInfoMessage(ConstantesUtil.MSJ_INFO_CAMBIOS_REALIZADOS);
             requestContext.execute("recursoWidget.hide();");
