@@ -1,8 +1,6 @@
-@CHARSET "UTF-8";
-
 body { 
     background-color: #87AEC5;
-    background-image: url('#{resource['images/BannerTileBackground.gif']}');
+    background-image: url("#{resource['images/BannerTileBackground.gif']}");
     background-repeat: repeat-x;
     font-family: arial;
     font-size: 12px;
@@ -104,6 +102,14 @@ h3 {
     font-weight: bold;
 }
 
+.formulariosTable  input[type='text'].normal, .formulariosTable  textarea.normal {
+    width: 310px;
+}
+
+.formulariosTable textarea.normal {
+    height: 70px !important;
+}
+
 .formulariosTable .columnaIzquierda {
 
 }
@@ -125,5 +131,4 @@ h3 {
 
 .separador {
     padding-top: 16px;
-}
 }
