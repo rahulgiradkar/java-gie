@@ -25,27 +25,52 @@ import javax.persistence.*;
 public class Usuario implements BaseEntity {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @SequenceGenerator(name = "USUARIO_IDUSUARIO_GENERATOR", sequenceName = "USUARIO_ID_USUARIO_SEQ")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_IDUSUARIO_GENERATOR")
     @Column(name = "id_usuario", unique = true, nullable = false)
     private Long idUsuario;
+    
     @Column(length = 100)
     private String apellidos;
+    
     @Column(nullable = false, length = 50)
     private String email;
+    
     @Column(name = "es_admin", nullable = false)
     private Boolean esAdmin;
+    
     @Column(length = 100)
     private String nombres;
+    
     @Column(length = 500)
     private String password;
+    
     //bi-directional many-to-one association to Participante
     @OneToMany(mappedBy = "usuario")
     private Set<Participante> participantes = new HashSet<Participante>();
+    
     @OneToMany(mappedBy = "reservadoPor", cascade = CascadeType.REMOVE)
     private Set<Reserva> reservasRealizadas = new HashSet<Reserva>();
-
+    
+    @Embedded
+    @AttributeOverrides({
+        @AttributeOverride(name="direccion_id_comuna", column=@Column(name="direccion_actual_id_comuna")),
+        @AttributeOverride(name="direccion_calle", column=@Column(name="direccion_actual_calle"))
+    })
+    private Direccion direccionActual;
+    
+    @OneToOne(mappedBy="usuario")
+    private ImagenPerfil imagenPerfil;
+    
+    @OneToMany(mappedBy="usuario")
+    private Set<HistorialAcademico> historialesAcademicos;
+    
+    @OneToMany(mappedBy="usuario")
+    private Set<HistorialProfesional> historialesProfesionales;
+    
+    
     public Usuario() {
     }
 
@@ -117,6 +142,38 @@ public class Usuario implements BaseEntity {
         this.reservasRealizadas = reservasRealizadas;
     }
 
+    public Direccion getDireccionActual() {
+        return direccionActual;
+    }
+
+    public void setDireccionActual(Direccion direccionActual) {
+        this.direccionActual = direccionActual;
+    }
+
+    public ImagenPerfil getImagenPerfil() {
+        return imagenPerfil;
+    }
+
+    public void setImagenPerfil(ImagenPerfil imagenPerfil) {
+        this.imagenPerfil = imagenPerfil;
+    }
+
+    public Set<HistorialAcademico> getHistorialesAcademicos() {
+        return historialesAcademicos;
+    }
+
+    public void setHistorialesAcademicos(Set<HistorialAcademico> historialesAcademicos) {
+        this.historialesAcademicos = historialesAcademicos;
+    }
+
+    public Set<HistorialProfesional> getHistorialesProfesionales() {
+        return historialesProfesionales;
+    }
+
+    public void setHistorialesProfesionales(Set<HistorialProfesional> historialesProfesionales) {
+        this.historialesProfesionales = historialesProfesionales;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
