@@ -19,7 +19,7 @@ public class HistorialProfesionalPK implements Serializable{
     private Long idEmpresa;
     
     @Column(name="id_usuario")
-    private Integer idUsuario;
+    private Long idUsuario;
 
     public Long getIdEmpresa() {
         return idEmpresa;
@@ -29,11 +29,11 @@ public class HistorialProfesionalPK implements Serializable{
         this.idEmpresa = idEmpresa;
     }
 
-    public Integer getIdUsuario() {
+    public Long getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(Long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

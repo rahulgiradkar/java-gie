@@ -12,7 +12,7 @@ public class ImagenPerfil implements Serializable {
     
     @Id
     @Column(name="id_usuario")
-    private Integer id;
+    private Long id;
     
     @OneToOne
     @JoinColumn(name="id_usuario", insertable=false, updatable=false)
@@ -38,11 +38,11 @@ public class ImagenPerfil implements Serializable {
         this.usuario = usuario;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
     
