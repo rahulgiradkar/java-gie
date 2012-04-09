@@ -371,6 +371,10 @@
                 <library dirs="200">
                     <file>${file.reference.jboss-servlet-api_3.0_spec-1.0.0.Final.jar}</file>
                 </library>
+                <library dirs="200">
+                    <file>${file.reference.jstl-1.2.jar}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
             <source-roots>
