@@ -40,6 +40,12 @@
             <from-outcome>agenda-recurso</from-outcome>
             <to-view-id>/agendas/agendaRecurso.xhtml</to-view-id>
         </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>mi-perfil</from-outcome>
+            <to-view-id>/infopersonal/contacto.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
     	
     </navigation-rule>
     
@@ -90,6 +96,30 @@
     		<to-view-id>/proyecto/editar.xhtml</to-view-id>
     	</navigation-case>
     	
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <from-view-id>/infopersonal/*</from-view-id>
+        
+        <navigation-case>
+            <from-outcome>contacto</from-outcome>
+            <to-view-id>/infopersonal/contacto.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>academicos</from-outcome>
+            <to-view-id>/infopersonal/academicos.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>profesionales</from-outcome>
+            <to-view-id>/infopersonal/profesionales.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+        
     </navigation-rule>
 
 </faces-config>

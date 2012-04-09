@@ -56,8 +56,10 @@ public class Usuario implements BaseEntity {
     
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name="direccion_id_comuna", column=@Column(name="direccion_actual_id_comuna")),
-        @AttributeOverride(name="direccion_calle", column=@Column(name="direccion_actual_calle"))
+        @AttributeOverride(name="calle", column=@Column(name="direccion_actual_calle"))
+    })
+    @AssociationOverrides({
+        @AssociationOverride(name="comuna", joinColumns=@JoinColumn(name="direccion_actual_id_comuna"))
     })
     private Direccion direccionActual;
     

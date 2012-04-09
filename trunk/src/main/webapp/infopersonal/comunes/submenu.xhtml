@@ -1,0 +1,28 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui" >
+
+
+    <span style="font-size: 14px;font-weight: bold;" >Mi Perfil: </span>
+    <span>
+        <h:link outcome="contacto">
+            <h:outputText value="Info Contacto" style="font-weight: bolder;" rendered="#{menuActual == 'contacto'}" />
+            <h:outputText value="Info Contacto" style="font-weight: lighter;" rendered="#{menuActual != 'contacto'}" />
+        </h:link> 
+    </span>
+    <span>
+        <h:link outcome="academicos">
+            <h:outputText value="Info Academica" style="font-weight: bolder;" rendered="#{menuActual == 'academicos'}" />
+            <h:outputText value="Info Academica" style="font-weight: lighter;" rendered="#{menuActual != 'academicos'}" />
+        </h:link> 
+    </span>
+    <span>
+        <h:link outcome="profesionales">
+            <h:outputText value="Info Profesional" style="font-weight: bolder;" rendered="#{menuActual == 'profesionales'}" />
+            <h:outputText value="Info Profesional" style="font-weight: lighter;" rendered="#{menuActual != 'profesionales'}" />
+        </h:link>
+    </span>
+
+</ui:composition>
