@@ -1,94 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-	<display-name>javaGIE</display-name>
+    <display-name>javaGIE</display-name>
 	
 	<!-- Cambia el estilo de primefaces -->
-	<context-param>  
+    <context-param>  
         <param-name>primefaces.THEME</param-name>  
         <!--param-value>bluesky</param-value-->
-		<param-value>none</param-value>
+        <param-value>none</param-value>
     </context-param>  
 	
 	<!-- Enables special Facelets debug output during development -->
-	<context-param>
-		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
 	
 	<!-- The master configuration file for this Spring web application -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring/spring-main-config.xml,
-                    /WEB-INF/spring/spring-data-config.xml,
-                    /WEB-INF/spring/spring-security-config.xml
-                </param-value>
-	</context-param>
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/spring/spring-main-config.xml,
+            /WEB-INF/spring/spring-data-config.xml,
+            /WEB-INF/spring/spring-security-config.xml,
+            /WEB-INF/spring/spring-mvc-config.xml
+        </param-value>
+    </context-param>
 	
 	<!-- Directorio parches sql -->
-	<context-param>
-		<param-name>directorio-parches</param-name>
-		<param-value>/WEB-INF/sql</param-value>
-	</context-param>
+    <context-param>
+        <param-name>directorio-parches</param-name>
+        <param-value>/WEB-INF/sql</param-value>
+    </context-param>
 	
 	<!-- archivos de configuracion jsf2 -->
-	<context-param>
-		<param-name>javax.faces.CONFIG_FILES</param-name>
-		<param-value>/WEB-INF/faces/faces-config.xml,/WEB-INF/faces/faces-navigation.xml</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.CONFIG_FILES</param-name>
+        <param-value>/WEB-INF/faces/faces-config.xml,/WEB-INF/faces/faces-navigation.xml</param-value>
+    </context-param>
 	
 	<!-- Use JSF view templates saved as *.xhtml, for use with Facelets -->
-	<context-param>
-		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
-		<param-value>.xhtml</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
 	
 	<!-- Declare Spring Security Facelets tag library -->
-	<context-param>
-		<param-name>javax.faces.FACELETS_LIBRARIES</param-name>
-		<param-value>/WEB-INF/faces/springsecurity.taglib.xml</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_LIBRARIES</param-name>
+        <param-value>/WEB-INF/faces/springsecurity.taglib.xml</param-value>
+    </context-param>
 	
 	<!-- Causes Facelets to refresh templates during development -->
-	<context-param>
-		<param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
-		<param-value>1</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.FACELETS_REFRESH_PERIOD</param-name>
+        <param-value>1</param-value>
+    </context-param>
 	
 	<!-- JSF STATE SAVING -->
-	<context-param>
-		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-		<param-value>server</param-value>
-	</context-param>
+    <context-param>
+        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-value>server</param-value>
+    </context-param>
 	
 	<!-- Enforce UTF-8 Character Encoding 	-->
-	<filter>
-		<filter-name>charEncodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>charEncodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+    <filter>
+        <filter-name>charEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>charEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 	
     <!-- Enables Spring Security -->
-	<filter>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-		<dispatcher>FORWARD</dispatcher>
-		<dispatcher>REQUEST</dispatcher>
-	</filter-mapping>
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>REQUEST</dispatcher>
+    </filter-mapping>
 	 
 	<!-- filtro para dejar abierto entity manager durante request 
 	<filter>
@@ -106,39 +107,55 @@
      -->
 	
 	<!-- Loads the Spring web application context -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 	
 	<!-- ServiceLocator Spring -->
-	<listener>
-		<listener-class>javagie.arquitectura.ServiceLocator</listener-class>
-	</listener>
+    <listener>
+        <listener-class>javagie.arquitectura.ServiceLocator</listener-class>
+    </listener>
 	
 	<!-- Sistema de auto-parche Made in Zeke -->
-	<listener>
-		<listener-class>javagie.arquitectura.AutoParcheListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>javagie.arquitectura.AutoParcheListener</listener-class>
+    </listener>
 	
 	<!-- permite obtener el request http de otros ontextos -->
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
 	
 	<!-- JSF 2.0 -->
-	<servlet>
-		<servlet-name>Faces Servlet</servlet-name>
-		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
+     <!-- Spring MVC front controller. Use master configuration file -->
+    <servlet>
+            <servlet-name>Spring MVC</servlet-name>
+            <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+            <init-param>
+                    <param-name>contextConfigLocation</param-name>
+                    <param-value></param-value>
+            </init-param>
+            <load-on-startup>2</load-on-startup>
+    </servlet>
 	
 	<!-- Servlets mappings -->
-	<servlet-mapping>
-		<servlet-name>Faces Servlet</servlet-name>
-		<url-pattern>*.jsf</url-pattern>
-	</servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>Spring MVC</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
 	
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 </web-app>
