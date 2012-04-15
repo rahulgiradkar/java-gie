@@ -12,6 +12,46 @@
             </ui:include>
             
             <h2>Información de Contacto</h2>
+            
+            
+            
+            <h:form id="formContacto" enctype="multipart/form-data">
+                <p:messages autoUpdate="true" />
+                
+                <p:fileUpload id="fileUpload"  fileUploadListener="#{uploadImagenCropBean.subirImagen}"  
+                    mode="advanced"  
+                    update="imagenCropPanel"  
+                    auto="true"  
+                    sizeLimit="100000"   
+                    allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  />  
+                
+                
+                <p:outputPanel id="imagenCropPanel">
+                    
+                    <p:imageCropper id="imgCrop" 
+                                    image="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/uploadimagencrop/subida;jsessionid=#{session.id}"
+                                    minSize="100,100"
+                                    initialCoords="10,10,100,100"
+                                    aspectRatio="1"
+                                    value="#{uploadImagenCropBean.croppedImage}" rendered="#{uploadImagenCropBean.subida}" />
+                           
+                    <p:outputPanel id="resultCropPanel">
+                        <ui:fragment rendered="#{uploadImagenCropBean.crop}">
+                        hola lo cropie bien
+                        <p:graphicImage value="/uploadimagencrop/crop"  />  
+                        </ui:fragment>
+                    </p:outputPanel>
+                     
+                    <p:commandButton value="CROP" process="@this imgCrop" update="formContacto:resultCropPanel" 
+                                     actionListener="#{uploadImagenCropBean.crop()}" 
+                                     rendered="#{uploadImagenCropBean.subida}"  />
+                </p:outputPanel>
+                
+                
+            </h:form>
+            
+             
+            
 		
 	</ui:define>
 </ui:composition>

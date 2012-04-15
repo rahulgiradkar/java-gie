@@ -26,6 +26,14 @@
 		</system-event-listener>
 
 	</application>
+        
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.ImageCropperRenderer</renderer-type>
+            <renderer-class>org.primefaces.component.imagecropper.TrollFacesImageCropperRenderer</renderer-class>
+        </renderer>
+    </render-kit>
 
 
 </faces-config>
