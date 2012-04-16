@@ -1,0 +1,1 @@
+ALTER TABLE imagen_perfil ADD COLUMN content_type VARCHAR(50) NOT NULL;

@@ -2,12 +2,10 @@ package javagie.services;
 
 import java.util.Date;
 import java.util.List;
-
 import javagie.dto.ResumenBitDto;
 import javagie.entities.Bitacora;
 import javagie.entities.Proyecto;
 import javagie.entities.Usuario;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,7 +51,7 @@ public class FachadaService {
 	}
 	
 	public Usuario traerUsuarioPorEmail(String email) {
-		return securityService.traerUsuarioPorEmail(email);
+		return securityService.traerUsuarioValidoPorEmail(email);
 	}
 	
 	

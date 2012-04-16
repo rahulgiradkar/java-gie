@@ -3,9 +3,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui" 
+        xmlns:t="http://myfaces.apache.org/tomahawk" 
 	template="/templates/basictemplate.xhtml">
 		
 	<ui:define name="contenido">
+            
+            <f:metadata>
+                <f:event type="preRenderView" listener="#{contactoBean.iniciar()}"/>
+            </f:metadata>
+            <t:saveState value="#{contactoBean.mostrarCropDialog}"/>
+            <t:saveState value="#{contactoBean.existeImagenPerfil}"/>
+            <t:saveState value="#{contactoBean.croppedImage}"/>
+            <t:saveState value="#{contactoBean.usuario}"/>
+            
 		
             <ui:include src="/infopersonal/comunes/submenu.xhtml">
                 <ui:param name="menuActual" value="contacto" />
@@ -13,39 +23,70 @@
             
             <h2>Información de Contacto</h2>
             
-            
-            
             <h:form id="formContacto" enctype="multipart/form-data">
-                <p:messages autoUpdate="true" />
                 
-                <p:fileUpload id="fileUpload"  fileUploadListener="#{uploadImagenCropBean.subirImagen}"  
-                    mode="advanced"  
-                    update="imagenCropPanel"  
-                    auto="true"  
-                    sizeLimit="100000"   
-                    allowTypes="/(\.|\/)(gif|jpe?g|png)$/"  />  
-                
-                
-                <p:outputPanel id="imagenCropPanel">
-                    
-                    <p:imageCropper id="imgCrop" 
-                                    image="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}/uploadimagencrop/subida;jsessionid=#{session.id}"
-                                    minSize="100,100"
-                                    initialCoords="10,10,100,100"
-                                    aspectRatio="1"
-                                    value="#{uploadImagenCropBean.croppedImage}" rendered="#{uploadImagenCropBean.subida}" />
-                           
-                    <p:outputPanel id="resultCropPanel">
-                        <ui:fragment rendered="#{uploadImagenCropBean.crop}">
-                        hola lo cropie bien
-                        <p:graphicImage value="/uploadimagencrop/crop"  />  
-                        </ui:fragment>
-                    </p:outputPanel>
-                     
-                    <p:commandButton value="CROP" process="@this imgCrop" update="formContacto:resultCropPanel" 
-                                     actionListener="#{uploadImagenCropBean.crop()}" 
-                                     rendered="#{uploadImagenCropBean.subida}"  />
+                <p:outputPanel id="imagenPanel">
+                    <table class="formulariosTable">
+                        <tr><th></th><td></td></tr>
+                        <tr>
+                            <th>Imagen Perfil:</th>
+                            <ui:fragment rendered="#{contactoBean.existeImagenPerfil == false}">
+                                <td>
+                                    <p:fileUpload id="fileUpload"  fileUploadListener="#{contactoBean.subirImagen}"  
+                                                  mode="advanced"  
+                                                  auto="true"  
+                                                  sizeLimit="100000"   
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png)$/" 
+                                                  process="@this"
+                                                  update="formContacto:cropPanel"
+                                                  oncomplete="cropDialog.show();" />  
+                                </td>
+                            </ui:fragment>
+                            <ui:fragment rendered="#{contactoBean.existeImagenPerfil == true}">
+                                <td>
+                                    <h:graphicImage value="#{streamedContentController.urlStreamedContent()}" />
+                                    <p:commandLink value="(quitar)" 
+                                                   process="@this" 
+                                                   update="formContacto:imagenPanel"
+                                                   actionListener="#{contactoBean.quitarImagen()}" />
+                                </td>
+                            </ui:fragment>
+                        </tr>
+                    </table>
                 </p:outputPanel>
+                
+                <div class="botoneraForm">
+                    <p:commandButton value="Guardar" actionListener="#{contactoBean.guardar()}"
+                                     process="@this formContacto:imagenPanel" update="@this" />
+                </div>
+                
+                
+                <p:dialog id="dialogDrop" widgetVar="cropDialog" header="Editar Imagen" modal="true">
+                    <p:outputPanel id="cropPanel">
+                        <ui:fragment rendered="#{contactoBean.mostrarCropDialog}">
+
+                            <p:imageCropper id="imgCrop" 
+                                            image="http://#{request.serverName}:#{request.serverPort}#{request.contextPath}#{streamedContentController.urlStreamedContent(0)};jsessionid=#{session.id}"
+                                            minSize="100,100"
+                                            initialCoords="10,10,100,100"
+                                            aspectRatio="1"
+                                            value="#{contactoBean.croppedImage}"/>
+                            <div class="botoneraSecundariaForm">
+                                <p:commandButton value="Aceptar" 
+                                                 process="@this formContacto:imgCrop" 
+                                                 update="formContacto:imagenPanel" 
+                                                 actionListener="#{contactoBean.crop()}" 
+                                                 oncomplete="cropDialog.hide();"/>
+                                <p:commandButton value="Cancelar" 
+                                                 process="@this formContacto:imgCrop" 
+                                                 update="formContacto:imagenPanel" 
+                                                 actionListener="#{contactoBean.cancelarCrop()}" 
+                                                 oncomplete="cropDialog.hide();"/>
+                            </div>
+                        </ui:fragment>
+
+                    </p:outputPanel>
+                </p:dialog>
                 
                 
             </h:form>

@@ -81,7 +81,7 @@ public class AgendaRecursoBean extends AbstractAgendaBean {
         reservaRecurso.setRecurso(recursoSelected);
         reservaRecurso.setFechaInicio(new Date(dateSelected.getTime()));
         reservaRecurso.setFechaFin(new Date(dateSelected.getTime()));
-        reservaRecurso.setReservadoPor(securityService.traerUsuarioPorEmail(identidad.getEmail()));
+        reservaRecurso.setReservadoPor(securityService.traerUsuarioValidoPorEmail(identidad.getEmail()));
 
     }
     
