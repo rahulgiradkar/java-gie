@@ -1,6 +1,6 @@
 package javagie.managedbeans.agendas;
 
-import javagie.security.Identidad;
+import javagie.managedbeans.sesion.Identidad;
 import javagie.services.ReservaService;
 import javagie.util.FacesUtil;
 import org.primefaces.model.ScheduleModel;

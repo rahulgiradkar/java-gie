@@ -1,5 +1,6 @@
 package javagie.security;
 
+import javagie.managedbeans.sesion.Identidad;
 import java.util.ArrayList;
 import java.util.List;
 

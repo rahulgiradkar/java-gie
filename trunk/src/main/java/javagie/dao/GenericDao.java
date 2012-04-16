@@ -1,10 +1,8 @@
 package javagie.dao;
 
 import java.io.Serializable;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
 @Repository("genericDao")

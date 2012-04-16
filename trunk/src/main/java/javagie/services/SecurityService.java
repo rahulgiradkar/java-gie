@@ -1,14 +1,11 @@
 package javagie.services;
 
 import java.util.List;
-
 import javagie.entities.Usuario;
 import javagie.util.EncodeUtil;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -73,7 +70,7 @@ public class SecurityService {
 	}
 
 	@Transactional(readOnly=true)
-	public Usuario traerUsuarioPorEmail(String email) {
+	public Usuario traerUsuarioValidoPorEmail(String email) {
 		try {
 			return (Usuario) em.createNamedQuery("Usuario.traerPorEmail")
 					.setParameter("email", email)

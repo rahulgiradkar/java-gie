@@ -6,7 +6,7 @@ import java.util.List;
 import javagie.dto.ResumenBitDto;
 import javagie.entities.Bitacora;
 import javagie.entities.Proyecto;
-import javagie.security.Identidad;
+import javagie.managedbeans.sesion.Identidad;
 import javagie.services.FachadaService;
 import javagie.util.ConstantesUtil;
 import javagie.util.FacesUtil;

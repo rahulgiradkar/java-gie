@@ -2,12 +2,18 @@ package javagie.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 /**
  *
  * @author eduardo
  */
 @Entity
+@Table(name="imagen_perfil")
+@NamedQueries({
+    @NamedQuery(name="ImagenPerfil.traerPorUsuario", 
+        query="SELECT img FROM ImagenPerfil img WHERE img.id = :idUsuario")
+})
 public class ImagenPerfil implements Serializable {
     
     @Id
@@ -18,9 +24,12 @@ public class ImagenPerfil implements Serializable {
     @JoinColumn(name="id_usuario", insertable=false, updatable=false)
     private Usuario usuario;
     
-    @Lob
-    @Column(name="bytes_imagen", nullable=true)
+    @Column(name="bytes_imagen", nullable=false)
     private byte[] bytesImagen;
+    
+    @Size(max=50)
+    @Column(name="content_type", nullable=false)
+    private String contentType;
 
     public byte[] getBytesImagen() {
         return bytesImagen;
@@ -45,7 +54,14 @@ public class ImagenPerfil implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
 
     @Override
     public boolean equals(Object obj) {
