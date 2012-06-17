@@ -1,9 +1,12 @@
 package javagie.entities;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javagie.arquitectura.BaseEntity;
 import javax.persistence.*;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 /**
  * The persistent class for the usuario database table.
@@ -65,6 +68,18 @@ public class Usuario implements BaseEntity {
     
     @OneToOne(mappedBy="usuario")
     private ImagenPerfil imagenPerfil;
+    
+    @Size(max=50)
+    @Column(name="fono_fijo", nullable=true)
+    private String fonoFijo;
+    
+    @Size(max=50)
+    @Column(name="fono_movil", nullable=true)
+    private String fonoMovil;
+    
+    @Past
+    @Column(name="fecha_nacimiento", nullable=true)
+    private Date fechaNacimiento;
     
     @OneToMany(mappedBy="usuario")
     private Set<HistorialAcademico> historialesAcademicos;
@@ -174,6 +189,30 @@ public class Usuario implements BaseEntity {
 
     public void setHistorialesProfesionales(Set<HistorialProfesional> historialesProfesionales) {
         this.historialesProfesionales = historialesProfesionales;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getFonoFijo() {
+        return fonoFijo;
+    }
+
+    public void setFonoFijo(String fonoFijo) {
+        this.fonoFijo = fonoFijo;
+    }
+
+    public String getFonoMovil() {
+        return fonoMovil;
+    }
+
+    public void setFonoMovil(String fonoMovil) {
+        this.fonoMovil = fonoMovil;
     }
     
     @Override

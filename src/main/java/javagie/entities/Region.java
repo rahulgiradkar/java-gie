@@ -3,16 +3,17 @@ package javagie.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 /**
  *
  * @author eduardo
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Region.traerTodas", query="select r from Region r "
+        + "order by r.nombre asc")
+})
 public class Region implements Serializable{
 
     @Id

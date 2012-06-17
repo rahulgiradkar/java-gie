@@ -9,6 +9,11 @@ import javax.persistence.*;
  * @author eduardo
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name="Provincia.traerPorRegion", query="select p from Provincia p "
+        + "where p.region = :region "
+        + "order by p.nombre asc")
+})
 public class Provincia implements Serializable {
     
     @Id
@@ -18,7 +23,7 @@ public class Provincia implements Serializable {
     @Column(name="nombre")
     private String nombre;
     
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="id_region")
     private Region region;
     
