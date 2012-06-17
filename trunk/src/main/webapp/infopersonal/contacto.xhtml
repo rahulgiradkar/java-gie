@@ -15,7 +15,11 @@
             <t:saveState value="#{contactoBean.existeImagenPerfil}"/>
             <t:saveState value="#{contactoBean.croppedImage}"/>
             <t:saveState value="#{contactoBean.usuario}"/>
-            
+            <t:saveState value="#{contactoBean.region}"/>
+            <t:saveState value="#{contactoBean.regiones}"/>
+            <t:saveState value="#{contactoBean.provincia}"/>
+            <t:saveState value="#{contactoBean.provincias}"/>
+            <t:saveState value="#{contactoBean.comunas}"/>
 		
             <ui:include src="/infopersonal/comunes/submenu.xhtml">
                 <ui:param name="menuActual" value="contacto" />
@@ -55,9 +59,78 @@
                     </table>
                 </p:outputPanel>
                 
+                
+                <p:outputPanel id="otrosDatos">
+                    <table class="formulariosTable">
+                        <tr><p:message for="fonofijo" /></tr>
+                        <tr>
+                            <th>Fono Fijo:</th>
+                            <td>
+                                <p:inputMask id="fonofijo" value="#{contactoBean.usuario.fonoFijo}" 
+                                             mask="999-9999999" />
+                            </td>
+                        </tr>
+                        <tr><p:message for="fonomovil" /></tr>
+                        <tr>
+                            <th>Fono Fijo:</th>
+                            <td>
+                                <p:inputMask id="fonomovil" value="#{contactoBean.usuario.fonoFijo}" 
+                                             mask="99-99999999" />
+                            </td>
+                        </tr>
+                        <tr><p:message for="region" /></tr>
+                        <tr>
+                            <th>Región:</th>
+                            <td>
+                                <p:selectOneMenu id="region" value="#{contactoBean.region}" converter="#{entityConverter}">
+                                    <f:selectItem itemLabel="Seleccionar ..." />
+                                    <f:selectItems value="#{contactoBean.regiones}" var="r" 
+                                                   itemLabel="#{r.nombre}" itemValue="#{r}" />
+                                    <p:ajax event="change" process="@this" 
+                                            update="formContacto:provincia formContacto:comuna"
+                                            listener="#{contactoBean.cambiarRegion()}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr><p:message for="provincia" /></tr>
+                        <tr>
+                            <th>Provincia:</th>
+                            <td>
+                                <p:selectOneMenu id="provincia" value="#{contactoBean.provincia}" converter="#{entityConverter}">
+                                    <f:selectItem itemLabel="Seleccionar ..." />
+                                    <f:selectItems value="#{contactoBean.provincias}" var="p" 
+                                                   itemLabel="#{p.nombre}" itemValue="#{p}" />
+                                    <p:ajax event="change" process="@this" 
+                                            update="formContacto:comuna"
+                                            listener="#{contactoBean.cambiarProvincia()}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr><p:message for="comuna" /></tr>
+                        <tr>
+                            <th>Comuna:</th>
+                            <td>
+                                <p:selectOneMenu id="comuna" value="#{contactoBean.usuario.direccionActual.comuna}" converter="#{entityConverter}">
+                                    <f:selectItem itemLabel="Seleccionar ..." />
+                                    <f:selectItems value="#{contactoBean.comunas}" var="c" 
+                                                   itemLabel="#{c.nombre}" itemValue="#{c}" />
+                                </p:selectOneMenu>
+                            </td>
+                        </tr>
+                        <tr><p:message for="calle" /></tr>
+                        <tr>
+                            <th>Calle:</th>
+                            <td>
+                                <p:inputText id="calle" value="#{contactoBean.usuario.direccionActual.calle}" />
+                            </td>
+                        </tr>
+                    </table>
+                </p:outputPanel>
+                
+                
                 <div class="botoneraForm">
                     <p:commandButton value="Guardar" actionListener="#{contactoBean.guardar()}"
-                                     process="@this formContacto:imagenPanel" update="@this" />
+                                     process="@this formContacto:imagenPanel formContacto:otrosDatos" update="@this" />
                 </div>
                 
                 

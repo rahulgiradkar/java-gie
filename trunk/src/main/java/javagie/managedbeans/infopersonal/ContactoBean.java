@@ -1,16 +1,18 @@
 package javagie.managedbeans.infopersonal;
 
+import java.util.List;
 import javagie.controllers.StreamedContentController;
 import javagie.dto.StreamedContentDto;
-import javagie.entities.ImagenPerfil;
-import javagie.entities.Usuario;
+import javagie.entities.*;
 import javagie.exceptions.AccesoDenegadoBeanException;
 import javagie.exceptions.LogicaNegocioException;
 import javagie.managedbeans.sesion.Identidad;
+import javagie.services.DireccionService;
 import javagie.services.PerfilUsuarioService;
 import javagie.services.SecurityService;
 import javagie.util.ConstantesUtil;
 import javagie.util.FacesUtil;
+import javagie.util.ImageUtil;
 import javax.faces.context.FacesContext;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.CroppedImage;
@@ -41,11 +43,20 @@ public class ContactoBean {
     private PerfilUsuarioService perfilUsuarioService;
     @Autowired
     private SecurityService securityService;
+    @Autowired
+    private ImageUtil imageUtil;
+    @Autowired
+    private DireccionService direccionService;
     
     private boolean mostrarCropDialog;
     private boolean existeImagenPerfil;
     private CroppedImage croppedImage;
     private Usuario usuario;
+    private Region region;
+    private Provincia provincia;
+    private List<Region> regiones;
+    private List<Provincia> provincias;
+    private List<Comuna> comunas;
     
     public void iniciar() {
         if(FacesContext.getCurrentInstance().isPostback()) {
@@ -68,6 +79,29 @@ public class ContactoBean {
                     new StreamedContentDto(imagenPerfil.getBytesImagen(), imagenPerfil.getContentType(), "preview");
             streamedContentController.setStreamedContent(facesUtil.obtenerHttpSession(), streamedContent);
         }
+        
+        //carga de listas
+        regiones = direccionService.traerRegiones();
+        if(usuario.getDireccionActual() != null && usuario.getDireccionActual().getComuna() != null) {
+            provincia = usuario.getDireccionActual().getComuna().getProvincia();
+            region = provincia.getRegion();
+            provincias = direccionService.traerProvinciasPorRegion(region);
+            comunas = direccionService.traerComunasPorProvincia(provincia);
+        }else {
+            usuario.setDireccionActual(new Direccion());
+        }
+    }
+    
+    public void cambiarRegion() {
+        provincia = null;
+        usuario.getDireccionActual().setComuna(null);
+        provincias = direccionService.traerProvinciasPorRegion(region);
+        comunas = null;
+    }
+    
+    public void cambiarProvincia() {
+        usuario.getDireccionActual().setComuna(null);
+        comunas = direccionService.traerComunasPorProvincia(provincia);
     }
     
     public void subirImagen(FileUploadEvent event) {
@@ -87,7 +121,7 @@ public class ContactoBean {
     public void crop() {
         log.debug("crop imagen. size crop: {}", croppedImage.getBytes().length );
         String contentType = streamedContentController.getStreamedContent(facesUtil.obtenerHttpSession(), 0).getContentType();
-        StreamedContentDto streamedContentPreview = new StreamedContentDto(croppedImage.getBytes(),contentType , "peview");
+        StreamedContentDto streamedContentPreview = new StreamedContentDto(imageUtil.escalar(croppedImage.getBytes(), 100, 100, imageUtil.obtenerFormato(contentType)),contentType , "peview");
         existeImagenPerfil = true;
         limpiarModoCrop();
         streamedContentController.setStreamedContent(facesUtil.obtenerHttpSession(), streamedContentPreview);
@@ -150,4 +184,46 @@ public class ContactoBean {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public Provincia getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(Provincia provincia) {
+        this.provincia = provincia;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
+
+    public void setRegion(Region region) {
+        this.region = region;
+    }
+
+    public List<Region> getRegiones() {
+        return regiones;
+    }
+
+    public void setRegiones(List<Region> regiones) {
+        this.regiones = regiones;
+    }
+
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public List<Comuna> getComunas() {
+        return comunas;
+    }
+
+    public void setComunas(List<Comuna> comunas) {
+        this.comunas = comunas;
+    }
+    
+    
 }
