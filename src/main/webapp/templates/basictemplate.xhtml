@@ -21,13 +21,33 @@
         </p:dialog>
 
         <div id="columnaCentral">
+            
+            <p:outputPanel id="mensajesGlobales" autoUpdate="true">
+                <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
+                                         and facesContext.maximumSeverity == 'ERROR 2' }">
+                                         <p:dialog widgetVar="facesErrorDialog" visible="true" header="Error" modal="true" closable="false" showEffect="pulsate" hideEffect="clip">
+                        <p:messages  globalOnly="true"   />
+                        <br/>
+                        <input type="button" value="Aceptar" onclick="facesErrorDialog.hide()" />
+                    </p:dialog>
+                </ui:fragment>
+                    
+                <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
+                                         and facesContext.maximumSeverity == 'INFO 0' }">
+                    <p:dialog widgetVar="facesInfoDialog" visible="true" header="Informacion" modal="true" closable="false" showEffect="fold" hideEffect="clip">
+                        <p:messages  globalOnly="true"  />
+                        <br/>
+                        <input type="button" value="Aceptar" onclick="facesInfoDialog.hide()" />
+                    </p:dialog>
+                </ui:fragment>
+            </p:outputPanel>
 
             <ui:include src="/templates/includes/header.xhtml" />	
 
             <ui:include src="/templates/includes/menuSuperior.xhtml"  />
 
             <div id="contenidoCentral">
-                <p:messages  globalOnly="true" autoUpdate="true"  />	
+                <!-- <p:messages  globalOnly="true" autoUpdate="true"  /> -->
                 <ui:insert name="contenido"> No se encontro contenido </ui:insert>
             </div>
 
