@@ -7,53 +7,56 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <h:head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/javagie-theme/skin.css" />
-        <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/general.css" />
-    </h:head>
+    <f:view contentType="text/html">
 
-    <h:body>
-        <h:outputScript library="js" name="primefaces.spanish.locale.js" target="body" />
-        <p:ajaxStatus onstart="statusDialog.show()" oncomplete="statusDialog.hide()"/>
-        <p:dialog widgetVar="statusDialog" modal="true" closable="false">
-            Por Favor Espere ...
-        </p:dialog>
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>JavaGIE</title>
+            </f:facet>
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/javagie-theme/skin.css" />
+            <link type="text/css" rel="stylesheet" href="#{request.contextPath}/resources/css/general.css" />
+        </h:head>
 
-        <div id="columnaCentral">
-            
-            <p:outputPanel id="mensajesGlobales" autoUpdate="true">
-                <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
-                                         and facesContext.maximumSeverity == 'ERROR 2' }">
-                                         <p:dialog widgetVar="facesErrorDialog" visible="true" header="Error" modal="true" closable="false" showEffect="pulsate" hideEffect="clip">
-                        <p:messages  globalOnly="true"   />
-                        <br/>
-                        <input type="button" value="Aceptar" onclick="facesErrorDialog.hide()" />
-                    </p:dialog>
-                </ui:fragment>
-                    
-                <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
-                                         and facesContext.maximumSeverity == 'INFO 0' }">
-                    <p:dialog widgetVar="facesInfoDialog" visible="true" header="Informacion" modal="true" closable="false" showEffect="fold" hideEffect="clip">
-                        <p:messages  globalOnly="true"  />
-                        <br/>
-                        <input type="button" value="Aceptar" onclick="facesInfoDialog.hide()" />
-                    </p:dialog>
-                </ui:fragment>
-            </p:outputPanel>
+        <h:body>
+            <h:outputScript library="js" name="primefaces.spanish.locale.js" target="body" />
+            <p:ajaxStatus onstart="statusDialog.show()" oncomplete="statusDialog.hide()"/>
+            <p:dialog widgetVar="statusDialog" modal="true" closable="false">
+                Por Favor Espere ...
+            </p:dialog>
 
-            <ui:include src="/templates/includes/header.xhtml" />	
+            <div id="columnaCentral">
 
-            <ui:include src="/templates/includes/menuSuperior.xhtml"  />
+                <p:outputPanel id="mensajesGlobales" autoUpdate="true">
+                    <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
+                                             and facesContext.maximumSeverity == 'ERROR 2' }">
+                        <p:dialog widgetVar="facesErrorDialog" visible="true" header="Error" modal="true" closable="false" showEffect="pulsate" hideEffect="clip">
+                            <p:messages  globalOnly="true"   />
+                            <br/>
+                            <input type="button" value="Aceptar" onclick="facesErrorDialog.hide()" />
+                        </p:dialog>
+                    </ui:fragment>
 
-            <div id="contenidoCentral">
-                <!-- <p:messages  globalOnly="true" autoUpdate="true"  /> -->
-                <ui:insert name="contenido"> No se encontro contenido </ui:insert>
+                    <ui:fragment rendered="#{!facesContext.validationFailed and facesContext.messageList.size() > 0 
+                                             and facesContext.maximumSeverity == 'INFO 0' }">
+                        <p:dialog widgetVar="facesInfoDialog" visible="true" header="Informacion" modal="true" closable="false" showEffect="fold" hideEffect="clip">
+                            <p:messages  globalOnly="true"  />
+                            <br/>
+                            <input type="button" value="Aceptar" onclick="facesInfoDialog.hide()" />
+                        </p:dialog>
+                    </ui:fragment>
+                </p:outputPanel>
+
+                <ui:include src="/templates/includes/header.xhtml" />	
+
+                <ui:include src="/templates/includes/menuSuperior.xhtml"  />
+
+                <div id="contenidoCentral">
+                    <!-- <p:messages  globalOnly="true" autoUpdate="true"  /> -->
+                    <ui:insert name="contenido"> No se encontro contenido </ui:insert>
+                </div>
+                <ui:include src="/templates/includes/footer.xhtml" />	
             </div>
-
-            <ui:include src="/templates/includes/footer.xhtml" />	
-
-        </div>
-
-    </h:body>
+        </h:body>
+    </f:view>
 </html>
